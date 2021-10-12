@@ -1,0 +1,374 @@
+{
+    "openapi":"3.0.2",
+    "info": {
+        "title":"GetfitWithPhsyo RESTful API",
+        "description":"RESTful API Spec",
+        "version":"1.0"
+    },
+    "servers": [
+        {"url":"https://localhost:3000/api/v1"}
+    ],
+    "paths": {
+        "/teams":{
+            "get":{
+                "tags": ["Teams API"],
+                "description": "Get All Teams",
+                "summary": "Get All Teams",
+                "responses": {
+                    "200":{
+                        "description": "Success Get All Teams",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "meta":{
+                                            "$ref":"#/components/schemas/Meta"
+                                        },
+                                        "data":{
+                                            "type": "array",
+                                            "items":{
+                                                "type": "object",
+                                                "properties":{
+                                                    "id":{
+                                                        "type": "number"
+                                                    },
+                                                    "name":{
+                                                        "type": "string"
+                                                    },
+                                                    "description":{
+                                                        "type": "string"
+                                                    },
+                                                    "position":{
+                                                        "type": "string"
+                                                    },
+                                                    "url":{
+                                                        "type": "string"
+                                                    },
+                                                    "photo_team":{
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "success":{
+                                        "value":{
+                                            "meta":{
+                                                "message":"Get Success",
+                                                "status":"success",
+                                                "code":200
+                                            },
+                                            "data":[
+                                                {
+                                                    "id": 1,
+                                                    "name": "Rifa Rahmalia. Amd.Ft",
+                                                    "description": "Education And Training Manager di Lembaga Vokasi Universitas Indonesia.  Lecturer University of Indonesia.  Senior Physiotherapist OM Active Clinic",
+                                                    "position": "therapist",
+                                                    "url": "https://id.linkedin.com/in/faizah-abdullah-24a332b3",
+                                                    "photo_team":"/images/feedbacks/comments-2.jpg"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/services":{
+            "get":{
+                "tags": ["Services API"],
+                "description": "Get All Data Services",
+                "summary": "Get All Data Services",
+                "responses": {
+                    "200":{
+                        "description": "Success Get All Data Services",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "meta":{
+                                            "$ref": "#/components/schemas/Meta"
+                                        },
+                                        "data":{
+                                            "type": "array",
+                                            "items":{
+                                                "type": "object",
+                                                "properties": {
+                                                    "id":{
+                                                        "type":"number"
+                                                    },
+                                                    "image":{
+                                                        "type": "string"
+                                                    },
+                                                    "service_name":{
+                                                        "type": "string"
+                                                    },
+                                                    "description":{
+                                                        "type": "string"
+                                                    },
+                                                    "price":{
+                                                        "type": "number"
+                                                    },
+                                                    "discount":{
+                                                        "type": "number"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "success":{
+                                        "value":{
+                                            "meta":{
+                                                "message":"Get Success",
+                                                "status":"success",
+                                                "code":200
+                                            },
+                                            "data":[
+                                                {
+                                                    "id":1,
+                                                    "image": "/images/service/service3.png",
+                                                    "service_name": "Rifa Rahmalia",
+                                                    "description": "Treatment Fisioterapi reguler dengan 1x pertemuan.",
+                                                    "price": 450000,
+                                                    "discount": 0
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/promo":{
+            "get":{
+                "tags": ["Promo API"],
+                "summary": "Get All Product is Promo",
+                "description": "Get All Product is Promo",
+                "responses": {
+                    "200":{
+                        "description": "Success Get All Promo",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "meta":{
+                                            "$ref":"#/components/schemas/Meta"
+                                        },
+                                        "data":{
+                                            "type": "array",
+                                            "items":{
+                                                "type": "object",
+                                                "properties": {
+                                                    "id":{
+                                                        "type":"number"
+                                                    },
+                                                    "image":{
+                                                        "type": "string"
+                                                    },
+                                                    "service_name":{
+                                                        "type": "string"
+                                                    },
+                                                    "discount":{
+                                                        "type": "number"
+                                                    },
+                                                    "description":{
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "success":{
+                                        "value":{
+                                            "meta":{
+                                                "message":"Get Success",
+                                                "status":"success",
+                                                "code":200
+                                            },
+                                            "data":[
+                                                {
+                                                    "id": 1,
+                                                    "image": "/images/service/service3.png",
+                                                    "service_name": "Paket Platinum discount Kemerdekaan",
+                                                    "discount": 50,
+                                                    "description": "Education And Training Manager di Lembaga Vokasi Universitas Indonesia.  Lecturer University of Indonesia.  Senior Physiotherapist OM Active Clinic"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/testimonial":{
+            "get":{
+                "tags": ["Testimonial API"],
+                "summary": "Get All Data Testimonial",
+                "description": "Get All Data Testimonial",
+                "responses": {
+                    "200":{
+                        "description": "Success Get All Data",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "meta":{
+                                            "$ref":"#/components/schemas/Meta"
+                                        },
+                                        "data":{
+                                            "type": "array",
+                                            "items":{
+                                                "type": "object",
+                                                "properties": {
+                                                    "id":{
+                                                        "type": "number"
+                                                    },
+                                                    "photo_user":{
+                                                        "type": "string"
+                                                    },
+                                                    "name":{
+                                                        "type": "string"
+                                                    },
+                                                    "content":{
+                                                        "type": "string"
+                                                    },
+                                                    "email":{
+                                                        "type": "string"
+                                                    },
+                                                    "occupation":{
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "success":{
+                                        "value":{
+                                            "meta":{
+                                                "message":"Get Success",
+                                                "status":"success",
+                                                "code":200
+                                            },
+                                            "data":[
+                                                {
+                                                    "id": 1,
+                                                    "photo_user": "/images/feedbacks/comments-2.jpg",
+                                                    "name": "Client1",
+                                                    "content": "Getfit With Physio Sangat Membantu saya dengan segala keluhan fisik saya. Terima kasih Getfit",
+                                                    "email": "clien1@gmail.com",
+                                                    "occupation": "Programmer"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/galeries":{
+            "get":{
+                "tags": ["Galeries API"],
+                "description": "Get All Gallery",
+                "summary": "Get All Gallery",
+                "responses": {
+                    "200":{
+                        "description": "Success Get All Gallery",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "meta":{
+                                            "$ref":"#/components/schemas/Meta"
+                                        },
+                                        "data":{
+                                            "type": "array",
+                                            "items":{
+                                                "type": "object",
+                                                "properties": {
+                                                    "id":{
+                                                        "type": "number"
+                                                    },
+                                                    "photo":{
+                                                        "type": "string"
+                                                    },
+                                                    "caption":{
+                                                        "type": "string"
+                                                    },
+                                                    "subCaption":{
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "success":{
+                                        "value":{
+                                            "meta":{
+                                                "message":"Get Success",
+                                                "status":"success",
+                                                "code":200
+                                            },
+                                            "data":[
+                                                {
+                                                    "id": 1,
+                                                    "photo": "/images/galleries/1.jpg",
+                                                    "caption": "Ruang Klinik SIMC",
+                                                    "subCaption": "Event 2021 ddengan sejuta keseruan."
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Meta":{
+                "type": "object",
+                "properties": {
+                    "message":{
+                        "type": "string"
+                    },
+                    "status":{
+                        "type": "string"
+                    },
+                    "code":{
+                        "type": "number"
+                    }
+                }
+            }
+        }
+    }
+}

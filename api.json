@@ -1,0 +1,171 @@
+{
+ 
+  "team": [
+    {
+      "id": 1,
+      "name": "Rifa Rahmalia. Amd.Ft",
+      "description": "Education And Training Manager di Lembaga Vokasi Universitas Indonesia.  Lecturer University of Indonesia.  Senior Physiotherapist OM Active Clinic",
+      "position": "therapist",
+      "url": "https://id.linkedin.com/in/faizah-abdullah-24a332b3"
+    },
+    {
+      "id": 2,
+      "name": "Rossa Nurhanifah. Amd.Ft",
+      "description": "Education And Training Manager di Lembaga Vokasi Universitas Indonesia.  Lecturer University of Indonesia.  Senior Physiotherapist OM Active Clinic",
+      "position": "therapist",
+      "url": "https://id.linkedin.com/in/faizah-abdullah-24a332b3"
+    },
+    {
+      "id": 3,
+      "name": "Adytio G",
+      "description": "Education And Training Manager di Lembaga Vokasi Universitas Indonesia.  Lecturer University of Indonesia.  Senior Physiotherapist OM Active Clinic",
+      "position": "therapist",
+      "url": "https://id.linkedin.com/in/faizah-abdullah-24a332b3"
+    },
+    {
+      "id": 4,
+      "name": "Almadisya",
+      "description": "Education And Training Manager di Lembaga Vokasi Universitas Indonesia.  Lecturer University of Indonesia.  Senior Physiotherapist OM Active Clinic",
+      "position": "therapist",
+      "url": "https://id.linkedin.com/in/faizah-abdullah-24a332b3"
+    },
+    {
+      "id": 5,
+      "name": "Christabelle",
+      "description": "Education And Training Manager di Lembaga Vokasi Universitas Indonesia.  Lecturer University of Indonesia.  Senior Physiotherapist OM Active Clinic",
+      "position": "therapist",
+      "url": "https://id.linkedin.com/in/faizah-abdullah-24a332b3"
+    }
+  ],
+  "services": [
+    {
+      "service_id": 1,
+      "image": "/images/service/service3.png",
+      "service_name": "Rifa Rahmalia",
+      "description": "Treatment Fisioterapi reguler dengan 1x pertemuan.",
+      "url": "https://id.linkedin.com/in/faizah-abdullah-24a332b3",
+      "price": 450000,
+      "discount": 0
+    },
+    {
+      "service_id": 2,
+      "image": "/images/service/service1.png",
+      "service_name": "Rifa Rahmalia",
+      "description": "Paket Fisioterapi Silver dengan 3x pertemuan , Berupa Treatment Home Visit / On Clinic Sesuai Hari yang anda tentukan.",
+      "url": "https://id.linkedin.com/in/faizah-abdullah-24a332b3",
+      "price": 1350000,
+      "discount": 150000
+    },
+    {
+      "service_id": 3,
+      "image": "/images/service/service2.png",
+      "service_name": "Rifa Rahmalia",
+      "description": "Paket Fisioterapi Gold dengan 6x pertemuan , Berupa Treatment Home Visit / On Clinic Sesuai Hari yang anda tentukan.",
+      "url": "https://id.linkedin.com/in/faizah-abdullah-24a332b3",
+      "price": 2700000,
+      "discount": 450000
+    },
+    {
+      "service_id": 4,
+      "image": "/images/service/service2.png",
+      "service_name": "Rifa Rahmalia",
+      "description": "Paket Fisioterapi Platinum dengan 12x pertemuan , Berupa Treatment Home Visit / On Clinic Sesuai Hari yang anda tentukan.",
+      "url": "https://id.linkedin.com/in/faizah-abdullah-24a332b3",
+      "price": 5400000,
+      "discount": 500000
+    }
+  ],
+  "promo": [
+    {
+      "promo_id": 1,
+      "image": "/images/service/service3.png",
+      "promo_name": "Paket Platinum discount Kemerdekaan",
+      "discount": 50,
+      "description": "Education And Training Manager di Lembaga Vokasi Universitas Indonesia.  Lecturer University of Indonesia.  Senior Physiotherapist OM Active Clinic"
+    },
+    {
+      "promo_id": 2,
+      "image": "/images/service/service3.png",
+      "promo_name": "Paket Platinum discount Hari Lebaran",
+      "discount": 20,
+      "description": "Education And Training Manager di Lembaga Vokasi Universitas Indonesia.  Lecturer University of Indonesia.  Senior Physiotherapist OM Active Clinic"
+    },
+    {
+      "promo_id": 3,
+      "image": "/images/service/service3.png",
+      "promo_name": "Paket Bundling First Consult",
+      "discount": 33,
+      "description": "Education And Training Manager di Lembaga Vokasi Universitas Indonesia.  Lecturer University of Indonesia.  Senior Physiotherapist OM Active Clinic"
+    }
+  ],
+  "footer": [
+    {
+      "contact_person_id": 1,
+      "address": "Jl. Johar No.1A, RT.5/RW.3, Gondangdia, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10350",
+      "phone_number": "0895619258715",
+      "maps": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.576228623227!2d106.83054251430991!3d-6.187421862344525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f565142de17d%3A0x7250225273d7d32b!2sSAMASTA%20INTEGRATED%20MEDICAL%20CENTER!5e0!3m2!1sid!2sid!4v1631864436513!5m2!1sid!2sid"
+    },
+    {
+      "contact_person_id": 2,
+      "address": "Jl. Johar No.1A, RT.5/RW.3, Gondangdia, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10350",
+      "phone_number": "08956194341345",
+      "maps": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.576228623227!2d106.83054251430991!3d-6.187421862344525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f565142de17d%3A0x7250225273d7d32b!2sSAMASTA%20INTEGRATED%20MEDICAL%20CENTER!5e0!3m2!1sid!2sid!4v1631864436513!5m2!1sid!2sid"
+    }
+  ],
+  "videoOpening": {
+    "url": "/video/samasta full-high_3.mp4",
+    "thumbnail": "/video/thumbnailsVideoOpening.png"
+  },
+  "feedbacks": [
+    {
+      "id": 1,
+      "photo": "/images/feedbacks/comments-2.jpg",
+      "name": "Client1",
+      "content": "Getfit With Physio Sangat Membantu saya dengan segala keluhan fisik saya. Terima kasih Getfit",
+      "email": "clien1@gmail.com",
+      "occupation": "Programmer"
+    },
+    {
+      "id": 2,
+      "photo": "/images/feedbacks/comments-3.jpg",
+      "name": "Client2",
+      "content": "Getfit With Physio Membuat saya dapat bekerja dengan optimal lagi di karenakan sakit di punggung saya telah hilang total, Terima kasih Getfit",
+      "email": "clien2@gmail.com",
+      "occupation": "Driver"
+    },
+    {
+      "id": 3,
+      "photo": "/images/feedbacks/comments-4.jpg",
+      "name": "Client3",
+      "content": "Getfit With Physio Telah mengobati Struk yang saya alami selama 3 tahun ini, Saat ini saya sudah bisa berjalan tanpa bantuan Alat lagi.. Terima kasih Getfit Getfit With Physio Telah mengobati Struk yang saya alami selama 3 tahun ini, Saat ini saya sudah bisa berjalan tanpa bantuan Alat lagi.. Terima kasih GetfitGetfit With Physio Telah mengobati Struk yang saya alami selama 3 tahun ini, Saat ini saya sudah bisa berjalan tanpa bantuan Alat lagi.. Terima kasih GetfitGetfit With Physio Telah mengobati Struk yang saya alami selama 3 tahun ini, Saat ini saya sudah bisa berjalan tanpa bantuan Alat lagi.. Terima kasih GetfitGetfit With Physio Telah mengobati Struk yang saya alami selama 3 tahun ini, Saat ini saya sudah bisa berjalan tanpa bantuan Alat lagi.. Terima kasih Getfit",
+      "email": "clien3@gmail.com",
+      "occupation": "Lawyer"
+    }
+  ],
+  "galleries": [
+    {
+      "id": 1,
+      "photo": "/images/galleries/1.jpg",
+      "caption": "Ruang Klinik SIMC",
+      "subCaption": "Event 2021 ddengan sejuta keseruan."
+    },
+    {
+      "id": 2,
+      "photo": "/images/galleries/2.jpg",
+      "caption": "FisioTalk Eps 1",
+      "subCaption": "Event 2021 ddengan sejuta keseruan."
+    },
+    {
+      "id": 3,
+      "photo": "/images/galleries/3.jpg",
+      "caption": "Diagnosing Phase",
+      "subCaption": "Event 2021 ddengan sejuta keseruan."
+    },
+    {
+      "id": 4,
+      "photo": "/images/galleries/4.jpg",
+      "caption": "Exercise",
+      "subCaption": "Event 2021 ddengan sejuta keseruan."
+    }
+  ]
+}
