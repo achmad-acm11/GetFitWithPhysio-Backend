@@ -30,6 +30,7 @@ func (s *servicePromo) GetAllService(ctx context.Context) []PromoResponse {
 	// Start Transaction
 	tx, err := s.db.Begin()
 	helper.HandleError(err)
+	defer helper.CommitOrRollback(tx)
 
 	promos := s.repo.GetAll(ctx, tx)
 
