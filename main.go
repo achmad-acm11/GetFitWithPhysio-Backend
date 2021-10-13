@@ -4,6 +4,7 @@ import (
 	"GetfitWithPhysio-backend/app"
 	"GetfitWithPhysio-backend/galery"
 	"GetfitWithPhysio-backend/helper"
+	"GetfitWithPhysio-backend/patient"
 	"GetfitWithPhysio-backend/promo"
 	"GetfitWithPhysio-backend/service"
 	"GetfitWithPhysio-backend/team"
@@ -34,6 +35,8 @@ func main() {
 	router = testimonial.Config(db, validate, router)
 	// Collection API Galeries
 	router = galery.Config(db, validate, router)
+	// Collection API Patinets
+	router = patient.Config(db, validate, router)
 
 	server := http.Server{
 		Addr:    "localhost:3000",
