@@ -21,8 +21,8 @@ func (r *repositoryPromo) GetAll(ctx context.Context, tx *sql.Tx) []Promo {
 	query := "SELECT * FROM promos"
 
 	data, err := tx.QueryContext(ctx, query)
-
 	helper.HandleError(err)
+	defer data.Close()
 
 	var promos []Promo
 	for data.Next() {

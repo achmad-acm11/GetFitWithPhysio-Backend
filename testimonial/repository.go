@@ -19,10 +19,11 @@ func NewRepositoryTestimonial() *repositoryTestimonial {
 
 // SQL Query Get All Testimonial
 func (r *repositoryTestimonial) GetAll(ctx context.Context, tx *sql.Tx) []Testimnoial {
-	query := "SELECT * FROM testimonial"
+	query := "SELECT * FROM testimonials"
 
 	data, err := tx.QueryContext(ctx, query)
 	helper.HandleError(err)
+	defer data.Close()
 
 	var testimonials []Testimnoial
 	for data.Next() {

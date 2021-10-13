@@ -31,7 +31,7 @@ func (s *serviceTestimonial) GetAllService(ctx context.Context) []TestimonialRes
 	tx, err := s.db.Begin()
 	helper.HandleError(err)
 
-	helper.CommitOrRollback(tx)
+	defer helper.CommitOrRollback(tx)
 
 	testimonials := s.repo.GetAll(ctx, tx)
 

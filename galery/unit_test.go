@@ -1,4 +1,4 @@
-package testimonial
+package galery
 
 import (
 	"GetfitWithPhysio-backend/helper"
@@ -21,24 +21,24 @@ func setupDatabase() *sql.DB {
 }
 
 func setupRouter(db *sql.DB) *httprouter.Router {
-	// Init Validator
+	// Init Validate
 	validate := validator.New()
+
 	// Init Router
 	router := httprouter.New()
 
 	return Config(db, validate, router)
 }
 
-func TestGetAllTestimonialSuccess(t *testing.T) {
+func TestGetAllGalerySuccess(t *testing.T) {
 	db := setupDatabase()
 	router := setupRouter(db)
 
-	request := httptest.NewRequest(http.MethodGet, "http://localhost:3000/api/v1/testimonials", nil)
+	request := httptest.NewRequest(http.MethodGet, "http://localhost:3000/api/v1/galeries", nil)
 	recorder := httptest.NewRecorder()
 
 	router.ServeHTTP(recorder, request)
 
 	response := recorder.Result()
-
 	assert.Equal(t, 200, response.StatusCode)
 }
