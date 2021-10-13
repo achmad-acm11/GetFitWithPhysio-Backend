@@ -3,11 +3,11 @@ package main
 import (
 	"GetfitWithPhysio-backend/app"
 	"GetfitWithPhysio-backend/helper"
+	"GetfitWithPhysio-backend/service"
 	"GetfitWithPhysio-backend/team"
 	"net/http"
 
 	"github.com/go-playground/validator"
-	_ "github.com/go-sql-driver/mysql"
 	"github.com/julienschmidt/httprouter"
 )
 
@@ -23,6 +23,8 @@ func main() {
 
 	// Collection API Teams
 	router = team.Config(db, validate, router)
+	// Collection API Services
+	router = service.Config(db, validate, router)
 
 	server := http.Server{
 		Addr:    "localhost:3000",
