@@ -3,9 +3,9 @@ package team
 import (
 	"GetfitWithPhysio-backend/helper"
 	"context"
-	"database/sql"
 
 	"github.com/go-playground/validator"
+	"gorm.io/gorm"
 )
 
 type ServiceTeam interface {
@@ -14,11 +14,11 @@ type ServiceTeam interface {
 
 type serivceTeam struct {
 	repo     RepositoryTeam
-	db       *sql.DB
+	db       *gorm.DB
 	validate *validator.Validate
 }
 
-func NewTeamService(repo RepositoryTeam, db *sql.DB, validate *validator.Validate) *serivceTeam {
+func NewTeamService(repo RepositoryTeam, db *gorm.DB, validate *validator.Validate) *serivceTeam {
 	return &serivceTeam{
 		repo:     repo,
 		db:       db,
@@ -29,13 +29,11 @@ func NewTeamService(repo RepositoryTeam, db *sql.DB, validate *validator.Validat
 // Service Get All Data Teams
 func (s *serivceTeam) GetAllTeams(ctx context.Context) []TeamResponse {
 	//Start Transaction
-	tx, err := s.db.Begin()
-	helper.HandleError(err)
+	tx := s.db.Begin()
 	// Handle Transaction
 	defer helper.CommitOrRollback(tx)
 
-	teams, err := s.repo.GetAll(ctx, tx)
-	helper.HandleError(err)
+	teams := s.repo.GetAll(ctx, tx)
 
 	return MapTeamsResponse(teams)
 }

@@ -3,9 +3,9 @@ package testimonial
 import (
 	"GetfitWithPhysio-backend/helper"
 	"context"
-	"database/sql"
 
 	"github.com/go-playground/validator"
+	"gorm.io/gorm"
 )
 
 type ServiceTestimonial interface {
@@ -14,11 +14,11 @@ type ServiceTestimonial interface {
 
 type serviceTestimonial struct {
 	repo      RepositoryTestimonial
-	db        *sql.DB
+	db        *gorm.DB
 	validator *validator.Validate
 }
 
-func NewServiceTestimonial(repo RepositoryTestimonial, db *sql.DB, validate *validator.Validate) *serviceTestimonial {
+func NewServiceTestimonial(repo RepositoryTestimonial, db *gorm.DB, validate *validator.Validate) *serviceTestimonial {
 	return &serviceTestimonial{
 		repo:      repo,
 		db:        db,
@@ -28,9 +28,7 @@ func NewServiceTestimonial(repo RepositoryTestimonial, db *sql.DB, validate *val
 
 func (s *serviceTestimonial) GetAllService(ctx context.Context) []TestimonialResponse {
 	// Start Transaction
-	tx, err := s.db.Begin()
-	helper.HandleError(err)
-
+	tx := s.db.Begin()
 	defer helper.CommitOrRollback(tx)
 
 	testimonials := s.repo.GetAll(ctx, tx)

@@ -3,11 +3,12 @@ package team
 import (
 	"GetfitWithPhysio-backend/helper"
 	"context"
-	"database/sql"
+
+	"gorm.io/gorm"
 )
 
 type RepositoryTeam interface {
-	GetAll(cx context.Context, tx *sql.Tx) ([]Team, error)
+	GetAll(cx context.Context, tx *gorm.DB) []Team
 }
 
 type repository struct {
@@ -19,24 +20,11 @@ func NewRepository() *repository {
 }
 
 // SQL Query Get All Data Team
-func (r *repository) GetAll(cx context.Context, tx *sql.Tx) ([]Team, error) {
-	query := "SELECT * FROM teams"
+func (r *repository) GetAll(cx context.Context, tx *gorm.DB) []Team {
+	teams := []Team{}
 
-	// Execute SQL Query
-	data, err := tx.QueryContext(cx, query)
+	err := tx.WithContext(cx).Find(&teams).Error
 	helper.HandleError(err)
-	defer data.Close()
 
-	// Mapping Team to Entity
-	var teams []Team
-	for data.Next() {
-		team := Team{}
-
-		err := data.Scan(&team.Id, &team.Name, &team.Position, &team.Url, &team.Description_profile, &team.Photo_team)
-		helper.HandleError(err)
-
-		teams = append(teams, team)
-	}
-
-	return teams, nil
+	return teams
 }

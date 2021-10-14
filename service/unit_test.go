@@ -2,26 +2,26 @@ package service
 
 import (
 	"GetfitWithPhysio-backend/helper"
-	"database/sql"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
 	"github.com/go-playground/validator"
-	_ "github.com/go-sql-driver/mysql"
 	"github.com/julienschmidt/httprouter"
 	"github.com/stretchr/testify/assert"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
-func setupDatabase() *sql.DB {
-	db, err := sql.Open("mysql", "root:root@tcp(localhost:8889)/getfitwith_physio")
+func setupDatabase() *gorm.DB {
+	db, err := gorm.Open(mysql.Open("root:root@tcp(localhost:8889)/getfitwith_physio?charset=utf8mb4&parseTime=True&loc=Local"), &gorm.Config{})
 
 	helper.HandleError(err)
 
 	return db
 }
 
-func setupRouter(db *sql.DB) *httprouter.Router {
+func setupRouter(db *gorm.DB) *httprouter.Router {
 	// Init validator
 	validate := validator.New()
 

@@ -3,7 +3,6 @@ package patient
 import (
 	"GetfitWithPhysio-backend/exception"
 	"GetfitWithPhysio-backend/helper"
-	"database/sql"
 	"encoding/json"
 	"io"
 	"net/http"
@@ -12,19 +11,20 @@ import (
 	"testing"
 
 	"github.com/go-playground/validator"
-	_ "github.com/go-sql-driver/mysql"
 	"github.com/julienschmidt/httprouter"
 	"github.com/stretchr/testify/assert"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
-func setupDatabase() *sql.DB {
-	db, err := sql.Open("mysql", "root:root@tcp(localhost:8889)/getfitwith_physio")
+func setupDatabase() *gorm.DB {
+	db, err := gorm.Open(mysql.Open("root:root@tcp(localhost:8889)/getfitwith_physio?charset=utf8mb4&parseTime=True&loc=Local"), &gorm.Config{})
 	helper.HandleError(err)
 
 	return db
 }
 
-func setupRouter(db *sql.DB) *httprouter.Router {
+func setupRouter(db *gorm.DB) *httprouter.Router {
 	// Init Validate
 	validate := validator.New()
 
@@ -36,12 +36,13 @@ func setupRouter(db *sql.DB) *httprouter.Router {
 
 	return router
 }
-func truncatePatient(db *sql.DB) {
+func truncatePatient(db *gorm.DB) {
 	db.Exec("TRUNCATE patients")
 }
-func truncateUser(db *sql.DB) {
-	db.Exec("TRUNCATE users")
-}
+
+// func truncateUser(db *gorm.DB) {
+// 	db.Exec("TRUNCATE users")
+// }
 func TestGetAllPatientSuccess(t *testing.T) {
 	db := setupDatabase()
 	router := setupRouter(db)
@@ -57,7 +58,6 @@ func TestGetAllPatientSuccess(t *testing.T) {
 
 func TestRegisterPatientSuccess(t *testing.T) {
 	db := setupDatabase()
-	truncateUser(db)
 	truncatePatient(db)
 	router := setupRouter(db)
 
@@ -90,7 +90,6 @@ func TestRegisterPatientSuccess(t *testing.T) {
 }
 func TestRegisterPatientFailed(t *testing.T) {
 	db := setupDatabase()
-	truncateUser(db)
 	truncatePatient(db)
 	router := setupRouter(db)
 

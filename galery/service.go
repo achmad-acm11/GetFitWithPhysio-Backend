@@ -3,9 +3,9 @@ package galery
 import (
 	"GetfitWithPhysio-backend/helper"
 	"context"
-	"database/sql"
 
 	"github.com/go-playground/validator"
+	"gorm.io/gorm"
 )
 
 type ServiceGalery interface {
@@ -13,11 +13,11 @@ type ServiceGalery interface {
 }
 type serviceGalery struct {
 	repo     RepositoryGalery
-	db       *sql.DB
+	db       *gorm.DB
 	validate *validator.Validate
 }
 
-func NewServiceGalery(repo RepositoryGalery, db *sql.DB, validate *validator.Validate) *serviceGalery {
+func NewServiceGalery(repo RepositoryGalery, db *gorm.DB, validate *validator.Validate) *serviceGalery {
 	return &serviceGalery{
 		repo:     repo,
 		db:       db,
@@ -27,8 +27,7 @@ func NewServiceGalery(repo RepositoryGalery, db *sql.DB, validate *validator.Val
 
 func (s *serviceGalery) GetAllService(ctx context.Context) []GaleryResponse {
 	// Start Transaction
-	tx, err := s.db.Begin()
-	helper.HandleError(err)
+	tx := s.db.Begin()
 	defer helper.CommitOrRollback(tx)
 
 	galeries := s.repo.GetAll(ctx, tx)

@@ -4,9 +4,10 @@ import (
 	"GetfitWithPhysio-backend/helper"
 	"GetfitWithPhysio-backend/user"
 	"context"
-	"database/sql"
+	"time"
 
 	"github.com/go-playground/validator"
+	"gorm.io/gorm"
 )
 
 type ServicePatient interface {
@@ -17,11 +18,11 @@ type ServicePatient interface {
 type servicePatient struct {
 	repo     ReposioryPatient
 	repoUser user.RepositoryUser
-	db       *sql.DB
+	db       *gorm.DB
 	validate *validator.Validate
 }
 
-func NewServicePatient(repo ReposioryPatient, repoUser user.RepositoryUser, db *sql.DB, validate *validator.Validate) *servicePatient {
+func NewServicePatient(repo ReposioryPatient, repoUser user.RepositoryUser, db *gorm.DB, validate *validator.Validate) *servicePatient {
 	return &servicePatient{
 		repo:     repo,
 		repoUser: repoUser,
@@ -32,8 +33,7 @@ func NewServicePatient(repo ReposioryPatient, repoUser user.RepositoryUser, db *
 
 func (s *servicePatient) GetAllService(ctx context.Context) []PatientResponse {
 	// Start Transaction
-	tx, err := s.db.Begin()
-	helper.HandleError(err)
+	tx := s.db.Begin()
 	defer helper.CommitOrRollback(tx)
 
 	patients := s.repo.GetAll(ctx, tx)
@@ -47,8 +47,7 @@ func (s *servicePatient) Register(ctx context.Context, req RegisterRequest) Regi
 	helper.HandleError(err)
 
 	// Start Transaction
-	tx, err := s.db.Begin()
-	helper.HandleError(err)
+	tx := s.db.Begin()
 	defer helper.CommitOrRollback(tx)
 
 	// Create Data User
@@ -58,14 +57,16 @@ func (s *servicePatient) Register(ctx context.Context, req RegisterRequest) Regi
 		Email:    req.Email,
 		Password: req.Password,
 	})
+	date, _ := time.Parse("02-01-2006", req.Birth_date)
 
 	// Create Data Patient
 	dataPatient := s.repo.Create(ctx, tx, Patient{
-		Id_user: dataUser.Id,
-		Gender:  req.Gender,
-		Nik:     req.Nik,
-		Phone:   req.Phone,
-		Address: req.Address,
+		Id_user:    dataUser.Id,
+		Gender:     req.Gender,
+		Nik:        req.Nik,
+		Birth_date: date,
+		Phone:      req.Phone,
+		Address:    req.Address,
 	})
 
 	return MapRegisterResponse(dataPatient, dataUser)

@@ -3,9 +3,9 @@ package service
 import (
 	"GetfitWithPhysio-backend/helper"
 	"context"
-	"database/sql"
 
 	"github.com/go-playground/validator"
+	"gorm.io/gorm"
 )
 
 type ServiceImpl interface {
@@ -14,11 +14,11 @@ type ServiceImpl interface {
 
 type serviceImpl struct {
 	repo     RepositoryService
-	db       *sql.DB
+	db       *gorm.DB
 	validate *validator.Validate
 }
 
-func NewServiceImpl(repo RepositoryService, db *sql.DB, validate *validator.Validate) *serviceImpl {
+func NewServiceImpl(repo RepositoryService, db *gorm.DB, validate *validator.Validate) *serviceImpl {
 	return &serviceImpl{
 		repo:     repo,
 		db:       db,
@@ -28,8 +28,7 @@ func NewServiceImpl(repo RepositoryService, db *sql.DB, validate *validator.Vali
 
 func (s *serviceImpl) GetAllService(ctx context.Context) []ServiceResponse {
 	// Start Transaction
-	tx, err := s.db.Begin()
-	helper.HandleError(err)
+	tx := s.db.Begin()
 	defer helper.CommitOrRollback(tx)
 
 	services := s.repo.GetAll(ctx, tx)

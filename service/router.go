@@ -1,13 +1,12 @@
 package service
 
 import (
-	"database/sql"
-
 	"github.com/go-playground/validator"
 	"github.com/julienschmidt/httprouter"
+	"gorm.io/gorm"
 )
 
-func Config(db *sql.DB, validate *validator.Validate, router *httprouter.Router) *httprouter.Router {
+func Config(db *gorm.DB, validate *validator.Validate, router *httprouter.Router) *httprouter.Router {
 	// Init Repository
 	repository := NewRepositoryService()
 	// Init Service

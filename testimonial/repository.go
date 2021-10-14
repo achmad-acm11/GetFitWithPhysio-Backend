@@ -3,11 +3,12 @@ package testimonial
 import (
 	"GetfitWithPhysio-backend/helper"
 	"context"
-	"database/sql"
+
+	"gorm.io/gorm"
 )
 
 type RepositoryTestimonial interface {
-	GetAll(ctx context.Context, tx *sql.Tx) []Testimnoial
+	GetAll(ctx context.Context, tx *gorm.DB) []Testimnoial
 }
 
 type repositoryTestimonial struct {
@@ -18,21 +19,10 @@ func NewRepositoryTestimonial() *repositoryTestimonial {
 }
 
 // SQL Query Get All Testimonial
-func (r *repositoryTestimonial) GetAll(ctx context.Context, tx *sql.Tx) []Testimnoial {
-	query := "SELECT * FROM testimonials"
-
-	data, err := tx.QueryContext(ctx, query)
+func (r *repositoryTestimonial) GetAll(ctx context.Context, tx *gorm.DB) []Testimnoial {
+	testimonials := []Testimnoial{}
+	err := tx.WithContext(ctx).Find(&testimonials).Error
 	helper.HandleError(err)
-	defer data.Close()
 
-	var testimonials []Testimnoial
-	for data.Next() {
-		testimonial := Testimnoial{}
-
-		err := data.Scan(&testimonial.Id, &testimonial.Id_user, &testimonial.Content)
-		helper.HandleError(err)
-
-		testimonials = append(testimonials, testimonial)
-	}
 	return testimonials
 }

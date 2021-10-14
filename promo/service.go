@@ -3,9 +3,9 @@ package promo
 import (
 	"GetfitWithPhysio-backend/helper"
 	"context"
-	"database/sql"
 
 	"github.com/go-playground/validator"
+	"gorm.io/gorm"
 )
 
 type ServicePromo interface {
@@ -14,11 +14,11 @@ type ServicePromo interface {
 
 type servicePromo struct {
 	repo     RepositoryPromo
-	db       *sql.DB
+	db       *gorm.DB
 	validate *validator.Validate
 }
 
-func NewServicePromo(repo RepositoryPromo, db *sql.DB, validate *validator.Validate) *servicePromo {
+func NewServicePromo(repo RepositoryPromo, db *gorm.DB, validate *validator.Validate) *servicePromo {
 	return &servicePromo{
 		repo:     repo,
 		db:       db,
@@ -28,8 +28,7 @@ func NewServicePromo(repo RepositoryPromo, db *sql.DB, validate *validator.Valid
 
 func (s *servicePromo) GetAllService(ctx context.Context) []PromoResponse {
 	// Start Transaction
-	tx, err := s.db.Begin()
-	helper.HandleError(err)
+	tx := s.db.Begin()
 	defer helper.CommitOrRollback(tx)
 
 	promos := s.repo.GetAll(ctx, tx)

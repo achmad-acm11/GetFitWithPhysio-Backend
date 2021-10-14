@@ -3,11 +3,12 @@ package promo
 import (
 	"GetfitWithPhysio-backend/helper"
 	"context"
-	"database/sql"
+
+	"gorm.io/gorm"
 )
 
 type RepositoryPromo interface {
-	GetAll(ctx context.Context, tx *sql.Tx) []Promo
+	GetAll(ctx context.Context, tx *gorm.DB) []Promo
 }
 
 type repositoryPromo struct {
@@ -17,20 +18,10 @@ func NewRepositoryPromo() *repositoryPromo {
 	return &repositoryPromo{}
 }
 
-func (r *repositoryPromo) GetAll(ctx context.Context, tx *sql.Tx) []Promo {
-	query := "SELECT * FROM promos"
-
-	data, err := tx.QueryContext(ctx, query)
+func (r *repositoryPromo) GetAll(ctx context.Context, tx *gorm.DB) []Promo {
+	promos := []Promo{}
+	err := tx.WithContext(ctx).Find(&promos).Error
 	helper.HandleError(err)
-	defer data.Close()
 
-	var promos []Promo
-	for data.Next() {
-		promo := Promo{}
-		err := data.Scan(&promo.Id, &promo.Discount)
-		helper.HandleError(err)
-
-		promos = append(promos, promo)
-	}
 	return promos
 }

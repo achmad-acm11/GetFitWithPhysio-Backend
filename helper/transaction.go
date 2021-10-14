@@ -1,16 +1,16 @@
 package helper
 
-import "database/sql"
+import (
+	"gorm.io/gorm"
+)
 
-func CommitOrRollback(tx *sql.Tx) {
+func CommitOrRollback(tx *gorm.DB) {
 	err := recover()
 
 	if err != nil {
-		errRollback := tx.Rollback()
-		HandleError(errRollback)
+		tx.Rollback()
 		panic(err)
 	} else {
-		errCommit := tx.Commit()
-		HandleError(errCommit)
+		tx.Commit()
 	}
 }

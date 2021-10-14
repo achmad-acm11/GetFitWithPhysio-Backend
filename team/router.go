@@ -1,13 +1,12 @@
 package team
 
 import (
-	"database/sql"
-
 	"github.com/go-playground/validator"
 	"github.com/julienschmidt/httprouter"
+	"gorm.io/gorm"
 )
 
-func Config(db *sql.DB, validator *validator.Validate, router *httprouter.Router) *httprouter.Router {
+func Config(db *gorm.DB, validator *validator.Validate, router *httprouter.Router) *httprouter.Router {
 	// Init Repo
 	repository := NewRepository()
 	// Init Service

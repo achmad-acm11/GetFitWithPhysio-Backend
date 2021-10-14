@@ -7,26 +7,31 @@ import (
 type PatientResponse struct {
 	Id      int    `json:"id"`
 	Id_user int    `json:"id_user"`
+	Name    string `json:"name"`
 	Gender  string `json:"gender"`
+	Photo   string `json:"photo"`
 	Phone   string `json:"phone"`
 	Address string `json:"address"`
 }
 
 type RegisterResponse struct {
-	Name     string `json:"name"`
-	Gender   string `json:"gender"`
-	Phone    string `json:"phone"`
-	Address  string `json:"address"`
-	Nik      string `json:"nik"`
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	Name       string `json:"name"`
+	Gender     string `json:"gender"`
+	Phone      string `json:"phone"`
+	Address    string `json:"address"`
+	Nik        string `json:"nik"`
+	Birth_date string `json:"birthdate"`
+	Email      string `json:"email"`
+	Password   string `json:"password"`
 }
 
 func MapPatientResponse(patient Patient) PatientResponse {
 	return PatientResponse{
 		Id:      patient.Id,
 		Id_user: patient.Id_user,
+		Name:    patient.User.Name,
 		Gender:  patient.Gender,
+		Photo:   patient.User.Photo_user,
 		Phone:   patient.Phone,
 		Address: patient.Address,
 	}
@@ -42,13 +47,15 @@ func MapPatientsResponse(patients []Patient) []PatientResponse {
 }
 
 func MapRegisterResponse(patient Patient, user user.User) RegisterResponse {
+
 	return RegisterResponse{
-		Name:     user.Name,
-		Gender:   patient.Gender,
-		Phone:    patient.Phone,
-		Address:  patient.Address,
-		Nik:      patient.Nik,
-		Email:    user.Email,
-		Password: user.Password,
+		Name:       user.Name,
+		Gender:     patient.Gender,
+		Phone:      patient.Phone,
+		Address:    patient.Address,
+		Nik:        patient.Nik,
+		Birth_date: patient.Birth_date.Format("02-01-2006"),
+		Email:      user.Email,
+		Password:   user.Password,
 	}
 }
