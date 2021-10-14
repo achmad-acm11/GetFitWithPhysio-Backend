@@ -2,6 +2,7 @@ package main
 
 import (
 	"GetfitWithPhysio-backend/app"
+	"GetfitWithPhysio-backend/exception"
 	"GetfitWithPhysio-backend/galery"
 	"GetfitWithPhysio-backend/helper"
 	"GetfitWithPhysio-backend/patient"
@@ -37,6 +38,9 @@ func main() {
 	router = galery.Config(db, validate, router)
 	// Collection API Patinets
 	router = patient.Config(db, validate, router)
+
+	// Handler for Exception Error
+	router.PanicHandler = exception.ErrorHandler
 
 	server := http.Server{
 		Addr:    "localhost:3000",

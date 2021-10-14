@@ -23,7 +23,7 @@ func (c *controllerTeam) GetAllController(wr http.ResponseWriter, req *http.Requ
 		Meta: helper.Meta{
 			Message: "Get Success",
 			Status:  "success",
-			Code:    2000,
+			Code:    200,
 		},
 		Data: teamsResponse,
 	}

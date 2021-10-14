@@ -31,3 +31,21 @@ func (c *controllerPatient) GetAllController(res http.ResponseWriter, req *http.
 
 	helper.WriteToResponsebody(res, response)
 }
+
+func (c *controllerPatient) Register(res http.ResponseWriter, req *http.Request, params httprouter.Params) {
+	registerRequest := RegisterRequest{}
+
+	helper.ReadFromRequestBody(req, &registerRequest)
+
+	data := c.service.Register(req.Context(), registerRequest)
+
+	response := helper.FormatResponse{
+		Meta: helper.Meta{
+			Message: "Register Success",
+			Status:  "success",
+			Code:    200,
+		},
+		Data: data,
+	}
+	helper.WriteToResponsebody(res, response)
+}
