@@ -3,6 +3,7 @@ package patient
 import (
 	"GetfitWithPhysio-backend/helper"
 	"net/http"
+	"strconv"
 
 	"github.com/julienschmidt/httprouter"
 )
@@ -64,5 +65,23 @@ func (c *controllerPatient) Create(res http.ResponseWriter, req *http.Request, p
 		},
 		Data: data,
 	}
+	helper.WriteToResponsebody(res, response)
+}
+
+func (c *controllerPatient) Detail(res http.ResponseWriter, req *http.Request, params httprouter.Params) {
+	patientId, err := strconv.Atoi(params.ByName("patientId"))
+	helper.HandleError(err)
+
+	data := c.service.DetailService(req.Context(), patientId)
+
+	response := helper.FormatResponse{
+		Meta: helper.Meta{
+			Message: "Get Success",
+			Status:  "success",
+			Code:    200,
+		},
+		Data: data,
+	}
+
 	helper.WriteToResponsebody(res, response)
 }

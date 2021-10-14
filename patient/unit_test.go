@@ -182,3 +182,41 @@ func TestCreatePatientFailed(t *testing.T) {
 	json.Unmarshal(body, &responseBody)
 	assert.Equal(t, 400, int(responseBody["meta"].(map[string]interface{})["code"].(float64)))
 }
+func TestDetailPatientSuccess(t *testing.T) {
+	db := setupDatabase()
+	router := setupRouter(db)
+
+	request := httptest.NewRequest(http.MethodGet, "http://localhost:8889/api/v1/patient/1", nil)
+	recorder := httptest.NewRecorder()
+
+	router.ServeHTTP(recorder, request)
+
+	response := recorder.Result()
+	assert.Equal(t, 200, response.StatusCode)
+
+	body, _ := io.ReadAll(response.Body)
+	var responseBody map[string]interface{}
+
+	json.Unmarshal(body, &responseBody)
+
+	assert.Equal(t, 200, int(responseBody["meta"].(map[string]interface{})["code"].(float64)))
+}
+func TestDetailPatientFailed(t *testing.T) {
+	db := setupDatabase()
+	router := setupRouter(db)
+
+	request := httptest.NewRequest(http.MethodGet, "http://localhost:8889/api/v1/patient/9999", nil)
+	recorder := httptest.NewRecorder()
+
+	router.ServeHTTP(recorder, request)
+
+	response := recorder.Result()
+	assert.Equal(t, 404, response.StatusCode)
+
+	body, _ := io.ReadAll(response.Body)
+	var responseBody map[string]interface{}
+
+	json.Unmarshal(body, &responseBody)
+
+	assert.Equal(t, 404, int(responseBody["meta"].(map[string]interface{})["code"].(float64)))
+}

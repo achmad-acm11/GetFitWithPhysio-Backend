@@ -1,9 +1,11 @@
 package patient
 
 import (
+	"GetfitWithPhysio-backend/exception"
 	"GetfitWithPhysio-backend/helper"
 	"GetfitWithPhysio-backend/user"
 	"context"
+	"errors"
 	"time"
 
 	"github.com/go-playground/validator"
@@ -14,6 +16,7 @@ type ServicePatient interface {
 	GetAllService(ctx context.Context) []PatientResponse
 	Register(ctx context.Context, req RegisterRequest) RegisterResponse
 	CreateService(ctx context.Context, req CreatePatientRequest) CreatePatientResponse
+	DetailService(ctx context.Context, patientId int) DetailPatientResponse
 }
 
 type servicePatient struct {
@@ -102,4 +105,18 @@ func (s *servicePatient) CreateService(ctx context.Context, req CreatePatientReq
 	})
 
 	return MapCreatePatientResponse(dataPatient, dataUser)
+}
+
+func (s *servicePatient) DetailService(ctx context.Context, patientId int) DetailPatientResponse {
+	// Star Transaction
+	tx := s.db.Begin()
+	defer helper.CommitOrRollback(tx)
+
+	patient := s.repo.GetOneById(ctx, tx, patientId)
+
+	if patient.Id == 0 {
+		panic(exception.NewNotFoundError(errors.New("data not found").Error()))
+	}
+
+	return MapDetailPatientResponse(patient)
 }
