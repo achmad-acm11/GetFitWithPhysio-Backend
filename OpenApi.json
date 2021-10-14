@@ -132,6 +132,70 @@
                 }
             }
         },
+        "/login":{
+            "post":{
+                "tags": ["Users API"],
+                "description": "Login User Patient",
+                "summary": "Login User Patient",
+                "requestBody":{
+                    "description": "Input Data Login Patient",
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "properties": {
+                                    "email":{
+                                        "type": "string"
+                                    },
+                                    "password":{
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example":{
+                                "email": "patient@gmail.com",
+                                "password": "12345678"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200":{
+                        "description": "Success Login Patient",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "meta":{
+                                            "$ref":"#/components/schemas/Meta"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {}
+                                        }
+                                    }
+                                },
+                                "examples":{
+                                    "success":{
+                                        "value":{
+                                            "meta":{
+                                                "message": "Get Success",
+                                                "status": "success",
+                                                "code": 200
+                                            },
+                                            "data":{
+                                                
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/teams":{
             "get":{
                 "tags": ["Teams API"],

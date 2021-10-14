@@ -10,6 +10,7 @@ import (
 	"GetfitWithPhysio-backend/service"
 	"GetfitWithPhysio-backend/team"
 	"GetfitWithPhysio-backend/testimonial"
+	"GetfitWithPhysio-backend/user"
 	"net/http"
 
 	"github.com/go-playground/validator"
@@ -26,6 +27,8 @@ func main() {
 	// Init Router
 	router := httprouter.New()
 
+	// Collection API Users
+	router = user.Config(db, validate, router)
 	// Collection API Teams
 	router = team.Config(db, validate, router)
 	// Collection API Services

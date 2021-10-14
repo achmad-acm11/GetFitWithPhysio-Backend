@@ -8,6 +8,10 @@ import (
 )
 
 func ErrorHandler(res http.ResponseWriter, req *http.Request, err interface{}) {
+	if failedLoginError(res, req, err) {
+		return
+	}
+
 	if notFoundError(res, req, err) {
 		return
 	}
@@ -16,6 +20,27 @@ func ErrorHandler(res http.ResponseWriter, req *http.Request, err interface{}) {
 		return
 	}
 	internalServerError(res, req, err)
+}
+func failedLoginError(res http.ResponseWriter, req *http.Request, err interface{}) bool {
+	exception, ok := err.(failedLogin)
+	if ok {
+		res.Header().Add("content-type", "applicatio/json")
+		res.WriteHeader(http.StatusBadRequest)
+
+		response := helper.FormatResponse{
+			Meta: helper.Meta{
+				Message: "Login Failed",
+				Status:  "Bad Request",
+				Code:    http.StatusBadRequest,
+			},
+			Data: exception.Error,
+		}
+		helper.WriteToResponsebody(res, response)
+
+		return true
+	} else {
+		return false
+	}
 }
 func validationError(res http.ResponseWriter, req *http.Request, err interface{}) bool {
 	exception, ok := err.(validator.ValidationErrors)
