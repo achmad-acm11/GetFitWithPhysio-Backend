@@ -25,6 +25,17 @@ type RegisterResponse struct {
 	Password   string `json:"password"`
 }
 
+type CreatePatientResponse struct {
+	Name       string `json:"name"`
+	Gender     string `json:"gender"`
+	Phone      string `json:"phone"`
+	Address    string `json:"address"`
+	Nik        string `json:"nik"`
+	Birth_date string `json:"birthdate"`
+	Email      string `json:"email"`
+	Password   string `json:"password"`
+}
+
 func MapPatientResponse(patient Patient) PatientResponse {
 	return PatientResponse{
 		Id:      patient.Id,
@@ -49,6 +60,19 @@ func MapPatientsResponse(patients []Patient) []PatientResponse {
 func MapRegisterResponse(patient Patient, user user.User) RegisterResponse {
 
 	return RegisterResponse{
+		Name:       user.Name,
+		Gender:     patient.Gender,
+		Phone:      patient.Phone,
+		Address:    patient.Address,
+		Nik:        patient.Nik,
+		Birth_date: patient.Birth_date.Format("02-01-2006"),
+		Email:      user.Email,
+		Password:   user.Password,
+	}
+}
+func MapCreatePatientResponse(patient Patient, user user.User) CreatePatientResponse {
+
+	return CreatePatientResponse{
 		Name:       user.Name,
 		Gender:     patient.Gender,
 		Phone:      patient.Phone,

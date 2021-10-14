@@ -21,6 +21,7 @@ func Config(db *gorm.DB, validate *validator.Validate, router *httprouter.Router
 	// Create End Point
 	router.GET("/api/v1/patients", controller.GetAllController)
 	router.POST("/api/v1/register", controller.Register)
+	router.POST("/api/v1/patients", controller.Create)
 
 	return router
 }

@@ -109,7 +109,7 @@
                                     "success":{
                                         "value":{
                                             "meta":{
-                                                "message": "Get Success",
+                                                "message": "Register Success",
                                                 "status": "success",
                                                 "code": 200
                                             },
@@ -601,6 +601,127 @@
                                                     "address": "link harum manis rt04/02 no 166 kel cirimekar kec.cibinong Kab.Bogor"
                                                 }
                                             ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post":{
+                "tags": ["Patients API"],
+                "description": "Create Patient",
+                "summary": "Create Patient",
+                "requestBody":{
+                    "description": "Create Data Patient",
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "properties": {
+                                    "name" :{
+                                        "type": "string"
+                                    },
+                                    "gender":{
+                                        "type": "string"
+                                    },
+                                    "phone":{
+                                        "type": "string"
+                                    },
+                                    "address":{
+                                        "type": "string"
+                                    },
+                                    "nik":{
+                                        "type": "string"
+                                    },
+                                    "birthdate":{
+                                        "type": "string"
+                                    },
+                                    "email":{
+                                        "type": "string"
+                                    },
+                                    "password":{
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example":{
+                                "name": "patient1",
+                                "gender": "Perempuan",
+                                "phone": "0895619258715",
+                                "address": "link harum manis rt04/02 no 166 kel cirimekar kec.cibinong Kab.Bogor",
+                                "nik": "3215646516543",
+                                "birthdate": "15-09-1997",
+                                "email": "patient@gmail.com",
+                                "password": "12345678"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200":{
+                        "description": "Success Create Patient",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "meta":{
+                                            "$ref":"#/components/schemas/Meta"
+                                        },
+                                        "data":{
+                                            "type": "array",
+                                            "items":{
+                                                "type": "object",
+                                                "properties": {
+                                                    "name":{
+                                                        "type": "string"
+                                                    },
+                                                    "gender":{
+                                                        "type":"string"
+                                                    },
+                                                    "phone":{
+                                                        "type": "string"
+                                                    },
+                                                    "address":{
+                                                        "type": "string"
+                                                    },
+                                                    "nik":{
+                                                        "type": "string"   
+                                                    },
+                                                    "birthdate":{
+                                                        "type": "string"
+                                                    },
+                                                    "email":{
+                                                        "type": "string"
+                                                    },
+                                                    "password":{
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "success":{
+                                        "value":{
+                                            "meta":{
+                                                "message": "Create Success",
+                                                "status": "success",
+                                                "code": 200
+                                            },
+                                            "data":{
+                                                "name": "patient1",
+                                                "gender": "Perempuan",
+                                                "phone": "0895619258715",
+                                                "address": "link harum manis rt04/02 no 166 kel cirimekar kec.cibinong Kab.Bogor",
+                                                "nik": "3215646516543",
+                                                "birthdate": "15-09-1997",
+                                                "email": "patient@gmail.com",
+                                                "password": "12345678"
+                                            }
                                         }
                                     }
                                 }

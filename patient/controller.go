@@ -49,3 +49,20 @@ func (c *controllerPatient) Register(res http.ResponseWriter, req *http.Request,
 	}
 	helper.WriteToResponsebody(res, response)
 }
+func (c *controllerPatient) Create(res http.ResponseWriter, req *http.Request, params httprouter.Params) {
+	createPatientRequest := CreatePatientRequest{}
+
+	helper.ReadFromRequestBody(req, &createPatientRequest)
+
+	data := c.service.CreateService(req.Context(), createPatientRequest)
+
+	response := helper.FormatResponse{
+		Meta: helper.Meta{
+			Message: "Create Success",
+			Status:  "success",
+			Code:    200,
+		},
+		Data: data,
+	}
+	helper.WriteToResponsebody(res, response)
+}
