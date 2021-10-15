@@ -22,6 +22,9 @@ import (
 //go:embed resources/team_photos
 var resourcesTeamPhotos embed.FS
 
+//go:embed resources/service_image
+var resourcesServiceImage embed.FS
+
 func main() {
 	// Config Database
 	db := app.ConfigDB()
@@ -50,6 +53,8 @@ func main() {
 	// URL Access File
 	directory, _ := fs.Sub(resourcesTeamPhotos, "resources/team_photos")
 	router.ServeFiles("/team_photos/*filepath", http.FS(directory))
+	directory1, _ := fs.Sub(resourcesServiceImage, "resources/service_image")
+	router.ServeFiles("/service_image/*filepath", http.FS(directory1))
 
 	// Handler for Exception Error
 	router.PanicHandler = exception.ErrorHandler

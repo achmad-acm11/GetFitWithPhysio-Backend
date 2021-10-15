@@ -50,7 +50,7 @@ func (c *controllerTeam) CreateTeam(res http.ResponseWriter, req *http.Request, 
 	// Create Team End
 	if _, _, err := req.FormFile("photo"); err == nil {
 		// Save Upload File
-		pathFile := helper.UploadPhoto(req, req.FormValue("name")+strconv.Itoa(data.Id), "photo", "resources/team_photos")
+		pathFile := helper.UploadPhoto(req, req.FormValue("name")+strconv.Itoa(data.Id), "photo", "resources/team_photos", "team_photos")
 		// Update Photo
 		c.service.UploadPhoto(req.Context(), data.Id, pathFile)
 

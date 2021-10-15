@@ -1,7 +1,12 @@
 package service
 
 import (
+	"GetfitWithPhysio-backend/exception"
 	"GetfitWithPhysio-backend/helper"
+	"bytes"
+	"encoding/json"
+	"io"
+	"mime/multipart"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -28,9 +33,15 @@ func setupRouter(db *gorm.DB) *httprouter.Router {
 	// Init Router
 	router := httprouter.New()
 
-	return Config(db, validate, router)
-}
+	router = Config(db, validate, router)
 
+	router.PanicHandler = exception.ErrorHandler
+
+	return router
+}
+func truncateService(db *gorm.DB) {
+	db.Exec("TRUNCATE services")
+}
 func TestGetAllServiceSuccess(t *testing.T) {
 	db := setupDatabase()
 	router := setupRouter(db)
@@ -43,4 +54,64 @@ func TestGetAllServiceSuccess(t *testing.T) {
 	response := recorder.Result()
 
 	assert.Equal(t, 200, response.StatusCode)
+}
+
+func TestCreateServiceSuccess(t *testing.T) {
+	db := setupDatabase()
+	truncateService(db)
+	router := setupRouter(db)
+
+	reqBody := new(bytes.Buffer)
+	writer := multipart.NewWriter(reqBody)
+	writer.WriteField("kode_promo", "")
+	writer.WriteField("service_name", "Product Gold")
+	writer.WriteField("kuota_meet", "2")
+	writer.WriteField("price", "450000")
+	writer.WriteField("description", "Treatment Fisioterapi reguler dengan 1x pertemuan.")
+	writer.Close()
+
+	request := httptest.NewRequest(http.MethodPost, "http://localhost:3000/api/v1/services", reqBody)
+	request.Header.Add("content-type", writer.FormDataContentType())
+	recorder := httptest.NewRecorder()
+
+	router.ServeHTTP(recorder, request)
+
+	response := recorder.Result()
+	assert.Equal(t, 200, response.StatusCode)
+
+	body, _ := io.ReadAll(recorder.Body)
+	var responseBody map[string]interface{}
+
+	json.Unmarshal(body, &responseBody)
+	assert.Equal(t, 200, int(responseBody["meta"].(map[string]interface{})["code"].(float64)))
+}
+
+func TestCreateServiceFailed(t *testing.T) {
+	db := setupDatabase()
+	truncateService(db)
+	router := setupRouter(db)
+
+	reqBody := new(bytes.Buffer)
+	writer := multipart.NewWriter(reqBody)
+	writer.WriteField("kode_promo", "")
+	writer.WriteField("service_name", "")
+	writer.WriteField("kuota_meet", "2")
+	writer.WriteField("price", "450000")
+	writer.WriteField("description", "Treatment Fisioterapi reguler dengan 1x pertemuan.")
+	writer.Close()
+
+	request := httptest.NewRequest(http.MethodPost, "http://localhost:3000/api/v1/services", reqBody)
+	request.Header.Add("content-type", writer.FormDataContentType())
+	recorder := httptest.NewRecorder()
+
+	router.ServeHTTP(recorder, request)
+
+	response := recorder.Result()
+	assert.Equal(t, 400, response.StatusCode)
+
+	body, _ := io.ReadAll(recorder.Body)
+	var responseBody map[string]interface{}
+
+	json.Unmarshal(body, &responseBody)
+	assert.Equal(t, 400, int(responseBody["meta"].(map[string]interface{})["code"].(float64)))
 }

@@ -5,6 +5,8 @@ type ServiceResponse struct {
 	Image        string `json:"image"`
 	Service_name string `json:"service_name"`
 	Description  string `json:"description"`
+	Price        int    `json:"price"`
+	Discount     int    `json:"discount"`
 }
 
 func MapServiceResponse(service Service) ServiceResponse {
@@ -13,6 +15,8 @@ func MapServiceResponse(service Service) ServiceResponse {
 		Image:        service.Image,
 		Service_name: service.Service_name,
 		Description:  service.Description,
+		Price:        service.Price,
+		Discount:     service.Promo.Discount,
 	}
 }
 func MapServicesResponse(services []Service) []ServiceResponse {

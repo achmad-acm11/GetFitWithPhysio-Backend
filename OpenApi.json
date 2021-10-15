@@ -430,6 +430,108 @@
                         }
                     }
                 }
+            },
+            "post":{
+                "tags": ["Services API"],
+                "description": "Create Data Service",
+                "summary": "Create Data Service",
+                "requestBody":{
+                    "description": "Input Data Service",
+                    "content": {
+                        "multipart/form-data":{
+                            "schema":{
+                                "type": "object",
+                                "properties": {
+                                    "kode_promo":{
+                                        "type": "integer"
+                                    },
+                                    "service_name":{
+                                        "type": "string"
+                                    },
+                                    "kuota_meet":{
+                                        "type": "integer"
+                                    },
+                                    "price":{
+                                        "type": "integer"
+                                    },
+                                    "image":{
+                                        "type": "string"
+                                    },
+                                    "description":{
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "kode_promo":1,
+                                "service_name": "Product Gold",
+                                "kuota_name": 2,
+                                "price": 450000,
+                                "image": "/images/service/service3.png",
+                                "description": "Treatment Fisioterapi reguler dengan 1x pertemuan."
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200":{
+                        "description": "Success Create Service",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "meta":{
+                                            "$ref":"#/components/schemas/Meta"
+                                        },
+                                        "data":{
+                                            "type": "object",
+                                            "properties": {
+                                                "id":{
+                                                    "type":"number"
+                                                },
+                                                "image":{
+                                                    "type": "string"
+                                                },
+                                                "service_name":{
+                                                    "type": "string"
+                                                },
+                                                "description":{
+                                                    "type": "string"
+                                                },
+                                                "price":{
+                                                    "type": "number"
+                                                },
+                                                "discount":{
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "success":{
+                                        "value":{
+                                            "meta":{
+                                                "message":"Create Success",
+                                                "status":"success",
+                                                "code":200
+                                            },
+                                            "data":{
+                                                "id": 1,
+                                                "image": "/images/service/service3.png",
+                                                "service_name": "Product Gold",
+                                                "description": "Treatment Fisioterapi reguler dengan 1x pertemuan.",
+                                                "price": 450000,
+                                                "discount": 20
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/promo":{
