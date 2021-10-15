@@ -265,6 +265,100 @@
                         }
                     }
                 }
+            },
+            "post":{
+                "tags": ["Teams API"],
+                "description": "Create Team",
+                "summary": "Create Team",
+                "requestBody":{
+                    "description": "Input Data Team",
+                    "content": {
+                        "multipart/form-data":{
+                            "schema":{
+                                "type": "object",
+                                "properties": {
+                                    "name":{
+                                        "type": "string"
+                                    },
+                                    "position":{
+                                        "type": "string"
+                                    },
+                                    "url":{
+                                        "type": "string"
+                                    },
+                                    "desription":{
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "name": "Rifa Rahmalia. Amd.Ft",
+                                "position": "therapist",
+                                "url": "https://id.linkedin.com/in/faizah-abdullah-24a332b3",
+                                "description": "Education And Training Manager di Lembaga Vokasi Universitas Indonesia.  Lecturer University of Indonesia.  Senior Physiotherapist OM Active Clinic"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200":{
+                        "description": "Success Create Team",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "meta":{
+                                            "$ref":"#/components/schemas/Meta"
+                                        },
+                                        "data":{
+                                            "type": "object",
+                                            "properties": {
+                                                "id":{
+                                                    "type": "integer"
+                                                },
+                                                "name":{
+                                                    "type": "string"
+                                                },
+                                                "position":{
+                                                    "type": "string"
+                                                },
+                                                "url":{
+                                                    "type": "string"
+                                                },
+                                                "description":{
+                                                    "type": "string"
+                                                },
+                                                "photo_team":{
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "success":{
+                                        "value":{
+                                            "meta":{
+                                                "message":"Create Success",
+                                                "status":"success",
+                                                "code":200
+                                            },
+                                            "data":{
+                                                "id": 1,
+                                                "name": "Rifa Rahmalia. Amd.Ft",
+                                                "position": "therapist",
+                                                "url": "https://id.linkedin.com/in/faizah-abdullah-24a332b3",
+                                                "description": "Education And Training Manager di Lembaga Vokasi Universitas Indonesia.  Lecturer University of Indonesia.  Senior Physiotherapist OM Active Clinic",
+                                                "photo_team":"/images/feedbacks/comments-2.jpg"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/services":{

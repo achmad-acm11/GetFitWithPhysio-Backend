@@ -4,6 +4,7 @@ go 1.17
 
 require (
 	github.com/davecgh/go-spew v1.1.0 // indirect
+	github.com/go-playground/form v3.1.4+incompatible // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/go-playground/validator v9.31.0+incompatible // indirect

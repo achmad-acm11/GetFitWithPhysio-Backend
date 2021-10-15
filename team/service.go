@@ -10,6 +10,8 @@ import (
 
 type ServiceTeam interface {
 	GetAllTeams(ctx context.Context) []TeamResponse
+	Create(ctx context.Context, req CreateTeamRequest) TeamResponse
+	UploadPhoto(ctx context.Context, teamId int, filePath string)
 }
 
 type serivceTeam struct {
@@ -36,4 +38,34 @@ func (s *serivceTeam) GetAllTeams(ctx context.Context) []TeamResponse {
 	teams := s.repo.GetAll(ctx, tx)
 
 	return MapTeamsResponse(teams)
+}
+
+// Service Create Team
+func (s *serivceTeam) Create(ctx context.Context, req CreateTeamRequest) TeamResponse {
+
+	// Validate
+	err := s.validate.Struct(req)
+	helper.HandleError(err)
+
+	// Start Transaction
+	tx := s.db.Begin()
+	defer helper.CommitOrRollback(tx)
+
+	team := s.repo.Create(ctx, tx, Team{
+		Name:                req.Name,
+		Position:            req.Position,
+		Url:                 req.Url,
+		Description_profile: req.Description,
+	})
+
+	return MapTeamResponse(team)
+}
+
+// Service Upload Photo
+func (s *serivceTeam) UploadPhoto(ctx context.Context, teamId int, filePath string) {
+	tx := s.db.Begin()
+	defer helper.CommitOrRollback(tx)
+
+	s.repo.UpdatePhoto(ctx, tx, teamId, filePath)
+
 }

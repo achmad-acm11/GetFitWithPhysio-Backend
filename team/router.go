@@ -16,6 +16,7 @@ func Config(db *gorm.DB, validator *validator.Validate, router *httprouter.Route
 
 	// Create End Point
 	router.GET("/api/v1/teams", controller.GetAllController)
+	router.POST("/api/v1/teams", controller.CreateTeam)
 
 	return router
 }

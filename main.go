@@ -11,11 +11,16 @@ import (
 	"GetfitWithPhysio-backend/team"
 	"GetfitWithPhysio-backend/testimonial"
 	"GetfitWithPhysio-backend/user"
+	"embed"
+	"io/fs"
 	"net/http"
 
 	"github.com/go-playground/validator"
 	"github.com/julienschmidt/httprouter"
 )
+
+//go:embed resources/team_photos
+var resourcesTeamPhotos embed.FS
 
 func main() {
 	// Config Database
@@ -41,6 +46,10 @@ func main() {
 	router = galery.Config(db, validate, router)
 	// Collection API Patinets
 	router = patient.Config(db, validate, router)
+
+	// URL Access File
+	directory, _ := fs.Sub(resourcesTeamPhotos, "resources/team_photos")
+	router.ServeFiles("/team_photos/*filepath", http.FS(directory))
 
 	// Handler for Exception Error
 	router.PanicHandler = exception.ErrorHandler
