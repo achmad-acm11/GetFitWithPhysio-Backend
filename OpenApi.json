@@ -1327,24 +1327,6 @@
                         "name": "serviceId"
                     }
                 ],
-                "requestBody":{
-                    "description": "Input Transaction",
-                    "content": {
-                        "application/json":{
-                            "schema":{
-                                "type": "object",
-                                "properties": {
-                                    "describe_complaint":{
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example":{
-                                "describe_complaint":"Sakit pada bagian pinggang"
-                            }
-                        }
-                    }
-                },
                 "responses": {
                     "200":{
                         "description": "Success Transaction",
@@ -1374,9 +1356,6 @@
                                                 "service_name":{
                                                     "type": "string"
                                                 },
-                                                "describe_complaint":{
-                                                    "type": "string"
-                                                },
                                                 "code":{
                                                     "type": "string"
                                                 },
@@ -1404,7 +1383,6 @@
                                                 "id_service": 1,
                                                 "name":"Abdul",
                                                 "service_name":"Product Gold",
-                                                "describe_complaint":"Sakit pada bagian pinggang",
                                                 "code":"A1",
                                                 "amount":2000000,
                                                 "status":"pending"

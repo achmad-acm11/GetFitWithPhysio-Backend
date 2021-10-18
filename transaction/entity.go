@@ -6,13 +6,12 @@ import (
 )
 
 type Transaction struct {
-	Id               int
-	Id_user          int
-	Id_service       int
-	DesribeComplaint string
-	Amount           int
-	Code             string
-	Status           string
-	User             user.User       `gorm:"ForeignKey: Id_user"`
-	Service          service.Service `gorm:"ForeignKey: Id_service"`
+	Id         int
+	Id_user    int
+	Id_service int
+	Amount     int
+	Code       string
+	Status     string
+	User       user.User       `gorm:"ForeignKey: Id_user"`
+	Service    service.Service `gorm:"ForeignKey: Id_service"`
 }

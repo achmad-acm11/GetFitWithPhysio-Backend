@@ -48,8 +48,6 @@ func (s *serviceTransaction) GetAllService(ctx context.Context) []TransactionRes
 
 // Create Transaction Service
 func (s *serviceTransaction) CreateService(ctx context.Context, req RequestTransaction) TransactionResponse {
-	err := s.validator.Struct(req)
-	helper.HandleError(err)
 
 	tx := s.db.Begin()
 	defer helper.CommitOrRollback(tx)
@@ -71,11 +69,10 @@ func (s *serviceTransaction) CreateService(ctx context.Context, req RequestTrans
 
 	// Create Transaction
 	transaction := s.repo.Create(ctx, tx, Transaction{
-		Id_user:          req.IdUser,
-		Id_service:       req.IdService,
-		DesribeComplaint: req.DesribeComplaint,
-		Amount:           service.Price,
-		Status:           "Pending",
+		Id_user:    req.IdUser,
+		Id_service: req.IdService,
+		Amount:     service.Price,
+		Status:     "Pending",
 	})
 
 	// Generate Code Transaction

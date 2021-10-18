@@ -24,7 +24,6 @@ func (c *controllerTransaction) CreateTransactionController(res http.ResponseWri
 	helper.HandleError(err)
 
 	requestTransaction := RequestTransaction{}
-	helper.ReadFromRequestBody(req, &requestTransaction)
 
 	requestTransaction.IdService = serviceId
 	requestTransaction.IdUser = 10
