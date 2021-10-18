@@ -10,6 +10,7 @@ import (
 	"GetfitWithPhysio-backend/service"
 	"GetfitWithPhysio-backend/team"
 	"GetfitWithPhysio-backend/testimonial"
+	"GetfitWithPhysio-backend/transaction"
 	"GetfitWithPhysio-backend/user"
 	"embed"
 	"io/fs"
@@ -52,6 +53,8 @@ func main() {
 	router = galery.Config(db, validate, router)
 	// Collection API Patinets
 	router = patient.Config(db, validate, router)
+	// Collection API Transaction
+	router = transaction.Config(db, validate, router)
 
 	// URL Access File
 	directory, _ := fs.Sub(resourcesTeamPhotos, "resources/team_photos")

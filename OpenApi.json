@@ -1160,6 +1160,110 @@
                     }
                 }
             }
+        },
+        "/transactions/{serviceId}":{
+            "post":{
+                "tags": ["Tansactions API"],
+                "summary": "Create Transaction",
+                "description": "Create Transaction",
+                "parameters": [
+                    {
+                        "description": "Service Id",
+                        "required": true,
+                        "in": "path",
+                        "name": "serviceId"
+                    }
+                ],
+                "requestBody":{
+                    "description": "Input Transaction",
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "properties": {
+                                    "describe_complaint":{
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example":{
+                                "describe_complaint":"Sakit pada bagian pinggang"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200":{
+                        "description": "Success Transaction",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "meta":{
+                                            "$ref":"#/components/schemas/Meta"
+                                        },
+                                        "data":{
+                                            "type": "object",
+                                            "properties": {
+                                                "id":{
+                                                    "type": "integer"
+                                                },
+                                                "id_user":{
+                                                    "type": "integer"
+                                                },
+                                                "id_service":{
+                                                    "type": "integer"
+                                                },
+                                                "name":{
+                                                    "type": "string"
+                                                },
+                                                "service_name":{
+                                                    "type": "string"
+                                                },
+                                                "describe_complaint":{
+                                                    "type": "string"
+                                                },
+                                                "code":{
+                                                    "type": "string"
+                                                },
+                                                "amount":{
+                                                    "type": "number"
+                                                },
+                                                "status":{
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "success":{
+                                        "value":{
+                                            "meta":{
+                                                "message": "Transaction Success",
+                                                "status": "success",
+                                                "code": 200
+                                            },
+                                            "data":{
+                                                "id": 1,
+                                                "id_user": 1,
+                                                "id_service": 1,
+                                                "name":"Abdul",
+                                                "service_name":"Product Gold",
+                                                "describe_complaint":"Sakit pada bagian pinggang",
+                                                "code":"A1",
+                                                "amount":2000000,
+                                                "status":"pending"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
