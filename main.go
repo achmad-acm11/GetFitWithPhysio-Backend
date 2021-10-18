@@ -25,6 +25,9 @@ var resourcesTeamPhotos embed.FS
 //go:embed resources/service_image
 var resourcesServiceImage embed.FS
 
+//go:embed resources/galeries
+var resourcesGaleries embed.FS
+
 func main() {
 	// Config Database
 	db := app.ConfigDB()
@@ -55,6 +58,8 @@ func main() {
 	router.ServeFiles("/team_photos/*filepath", http.FS(directory))
 	directory1, _ := fs.Sub(resourcesServiceImage, "resources/service_image")
 	router.ServeFiles("/service_image/*filepath", http.FS(directory1))
+	directory2, _ := fs.Sub(resourcesGaleries, "resources/galeries")
+	router.ServeFiles("/galery/*filepath", http.FS(directory2))
 
 	// Handler for Exception Error
 	router.PanicHandler = exception.ErrorHandler

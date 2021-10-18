@@ -16,6 +16,7 @@ func Config(db *gorm.DB, validate *validator.Validate, router *httprouter.Router
 
 	// Create Router End Point
 	router.GET("/api/v1/galeries", controller.GetAllController)
+	router.POST("/api/v1/galeries", controller.CreateGaleryController)
 
 	return router
 }

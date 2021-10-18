@@ -768,7 +768,7 @@
                                                     "caption":{
                                                         "type": "string"
                                                     },
-                                                    "subCaption":{
+                                                    "sub_caption":{
                                                         "type": "string"
                                                     }
                                                 }
@@ -789,9 +789,91 @@
                                                     "id": 1,
                                                     "photo": "/images/galleries/1.jpg",
                                                     "caption": "Ruang Klinik SIMC",
-                                                    "subCaption": "Event 2021 ddengan sejuta keseruan."
+                                                    "sub_caption": "Event 2021 dengan sejuta keseruan."
                                                 }
                                             ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post":{
+                "tags": ["Galeries API"],
+                "summary": "Create Galery",
+                "description": "Create Galery",
+                "requestBody":{
+                    "description": "Input Galery",
+                    "content": {
+                        "multipart/form-data":{
+                            "schema":{
+                                "type": "object",
+                                "properties": {
+                                    "photo":{
+                                        "type": "string"
+                                    },
+                                    "caption":{
+                                        "type": "string"
+                                    },
+                                    "sub_caption":{
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "photo": "/images/galleries/1.jpg",
+                                "caption": "Ruang Klinik SIMC",
+                                "sub_caption": "Event 2021 dengan sejuta keseruan."
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200":{
+                        "description": "Success Create Galery",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "meta":{
+                                            "$ref":"#/components/schemas/Meta"
+                                        },
+                                        "data":{
+                                            "type": "object",
+                                            "properties": {
+                                                "id":{
+                                                    "type": "integer"
+                                                },
+                                                "photo":{
+                                                    "type": "string"
+                                                },
+                                                "caption":{
+                                                    "type": "string"
+                                                },
+                                                "sub_caption":{
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "success":{
+                                        "value":{
+                                            "meta":{
+                                                "message":"Upload Photo Success",
+                                                "status":"success",
+                                                "code":200
+                                            },
+                                            "data":{
+                                                "id": 1,
+                                                "photo": "/images/galleries/1.jpg",
+                                                "caption": "Ruang Klinik SIMC",
+                                                "sub_caption": "Event 2021 dengan sejuta keseruan."
+                                            }
                                         }
                                     }
                                 }

@@ -10,6 +10,8 @@ import (
 
 type ServiceGalery interface {
 	GetAllService(ctx context.Context) []GaleryResponse
+	CreateService(ctx context.Context, req CreateGaleryRequest) GaleryResponse
+	UploadPhoto(ctx context.Context, galeryId int, filePath string)
 }
 type serviceGalery struct {
 	repo     RepositoryGalery
@@ -25,6 +27,7 @@ func NewServiceGalery(repo RepositoryGalery, db *gorm.DB, validate *validator.Va
 	}
 }
 
+// Get All Galeries Service
 func (s *serviceGalery) GetAllService(ctx context.Context) []GaleryResponse {
 	// Start Transaction
 	tx := s.db.Begin()
@@ -33,4 +36,25 @@ func (s *serviceGalery) GetAllService(ctx context.Context) []GaleryResponse {
 	galeries := s.repo.GetAll(ctx, tx)
 
 	return MapGaleriesResponse(galeries)
+}
+
+func (s *serviceGalery) CreateService(ctx context.Context, req CreateGaleryRequest) GaleryResponse {
+	err := s.validate.Struct(req)
+	helper.HandleError(err)
+
+	tx := s.db.Begin()
+	defer helper.CommitOrRollback(tx)
+
+	galery := s.repo.Create(ctx, tx, Galery{
+		Caption:    req.Caption,
+		SubCaption: req.SubCaption,
+	})
+
+	return MapGaleryResponse(galery)
+}
+func (s *serviceGalery) UploadPhoto(ctx context.Context, galeryId int, filePath string) {
+	tx := s.db.Begin()
+	defer helper.CommitOrRollback(tx)
+
+	s.repo.UploadPhoto(ctx, tx, galeryId, filePath)
 }
