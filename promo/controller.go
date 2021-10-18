@@ -31,3 +31,22 @@ func (c *controllerPromo) GetAllContoller(res http.ResponseWriter, req *http.Req
 
 	helper.WriteToResponsebody(res, response)
 }
+
+func (c *controllerPromo) CreatePromoController(res http.ResponseWriter, req *http.Request, params httprouter.Params) {
+	requestPromo := CreatePromoRequest{}
+
+	helper.ReadFromRequestBody(req, &requestPromo)
+
+	data := c.service.CreatePromoService(req.Context(), requestPromo)
+
+	response := helper.FormatResponse{
+		Meta: helper.Meta{
+			Message: "Create Success",
+			Status:  "success",
+			Code:    200,
+		},
+		Data: data,
+	}
+
+	helper.WriteToResponsebody(res, response)
+}

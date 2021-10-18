@@ -10,6 +10,7 @@ import (
 type RepositoryPromo interface {
 	GetAll(ctx context.Context, tx *gorm.DB) []Promo
 	GetOneById(ctx context.Context, tx *gorm.DB, promoId int) Promo
+	Create(ctx context.Context, tx *gorm.DB, promo Promo) Promo
 }
 
 type repositoryPromo struct {
@@ -31,6 +32,13 @@ func (r *repositoryPromo) GetOneById(ctx context.Context, tx *gorm.DB, promoId i
 	promo := Promo{}
 
 	err := tx.WithContext(ctx).Where("id = ?", promoId).Find(&promo).Error
+	helper.HandleError(err)
+
+	return promo
+}
+
+func (r *repositoryPromo) Create(ctx context.Context, tx *gorm.DB, promo Promo) Promo {
+	err := tx.WithContext(ctx).Create(&promo).Error
 	helper.HandleError(err)
 
 	return promo

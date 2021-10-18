@@ -15,6 +15,7 @@ func Config(db *gorm.DB, validate *validator.Validate, router *httprouter.Router
 	controller := NewControllerPromo(service)
 
 	router.GET("/api/v1/promos", controller.GetAllContoller)
+	router.POST("/api/v1/promos", controller.CreatePromoController)
 
 	return router
 }

@@ -1,9 +1,13 @@
 package promo
 
 import (
+	"GetfitWithPhysio-backend/exception"
 	"GetfitWithPhysio-backend/helper"
+	"encoding/json"
+	"io"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 
 	"github.com/go-playground/validator"
@@ -28,9 +32,13 @@ func setupRouter(db *gorm.DB) http.Handler {
 	router := httprouter.New()
 
 	// Config End Point
-	return Config(db, validate, router)
+	router = Config(db, validate, router)
+	router.PanicHandler = exception.ErrorHandler
+	return router
 }
-
+func truncatePromo(db *gorm.DB) {
+	db.Exec("TRUNCATE promos")
+}
 func TestGetAllPromoSuccess(t *testing.T) {
 	db := setupDabase()
 
@@ -43,4 +51,47 @@ func TestGetAllPromoSuccess(t *testing.T) {
 
 	response := recorder.Result()
 	assert.Equal(t, 200, response.StatusCode)
+}
+
+func TestCreatePromoSuccess(t *testing.T) {
+	db := setupDabase()
+	truncatePromo(db)
+	router := setupRouter(db)
+
+	reqBody := strings.NewReader(`{"discount":20}`)
+	request := httptest.NewRequest(http.MethodPost, "http://localhost:3000/api/v1/promos", reqBody)
+	request.Header.Add("content-type", "application/json")
+	recorder := httptest.NewRecorder()
+
+	router.ServeHTTP(recorder, request)
+
+	response := recorder.Result()
+	assert.Equal(t, 200, response.StatusCode)
+
+	resBody, _ := io.ReadAll(recorder.Body)
+	var responseBody map[string]interface{}
+	json.Unmarshal(resBody, &responseBody)
+
+	assert.Equal(t, 200, int(responseBody["meta"].(map[string]interface{})["code"].(float64)))
+}
+func TestCreatePromoFailed(t *testing.T) {
+	db := setupDabase()
+	truncatePromo(db)
+	router := setupRouter(db)
+
+	reqBody := strings.NewReader(`{"discount":0}`)
+	request := httptest.NewRequest(http.MethodPost, "http://localhost:3000/api/v1/promos", reqBody)
+	request.Header.Add("content-type", "application/json")
+	recorder := httptest.NewRecorder()
+
+	router.ServeHTTP(recorder, request)
+
+	response := recorder.Result()
+	assert.Equal(t, 400, response.StatusCode)
+
+	resBody, _ := io.ReadAll(recorder.Body)
+	var responseBody map[string]interface{}
+	json.Unmarshal(resBody, &responseBody)
+
+	assert.Equal(t, 400, int(responseBody["meta"].(map[string]interface{})["code"].(float64)))
 }

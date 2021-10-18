@@ -31,7 +31,7 @@ func (r *repositoryService) GetAll(ctx context.Context, tx *gorm.DB) []Service {
 
 // SQL Query Create Service
 func (r *repositoryService) Create(ctx context.Context, tx *gorm.DB, service Service) Service {
-	err := tx.WithContext(ctx).Create(&service).Error
+	err := tx.WithContext(ctx).Preload("Promo").Create(&service).Error
 	helper.HandleError(err)
 
 	return service
