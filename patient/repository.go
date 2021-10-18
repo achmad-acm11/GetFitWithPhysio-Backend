@@ -11,6 +11,7 @@ type ReposioryPatient interface {
 	GetAll(ctx context.Context, tx *gorm.DB) []Patient
 	Create(ctx context.Context, tx *gorm.DB, patient Patient) Patient
 	GetOneById(ctx context.Context, tx *gorm.DB, patientId int) Patient
+	GetOneById_user(ctx context.Context, tx *gorm.DB, userId int) Patient
 }
 
 type repositoryPatient struct {
@@ -39,6 +40,15 @@ func (r *repositoryPatient) GetOneById(ctx context.Context, tx *gorm.DB, patient
 	patient := Patient{}
 
 	err := tx.WithContext(ctx).Preload("User").Where("id = ?", patientId).Find(&patient).Error
+	helper.HandleError(err)
+
+	return patient
+}
+
+func (r *repositoryPatient) GetOneById_user(ctx context.Context, tx *gorm.DB, userId int) Patient {
+	patient := Patient{}
+
+	err := tx.WithContext(ctx).Preload("User").Where("id_user = ?", userId).Find(&patient).Error
 	helper.HandleError(err)
 
 	return patient

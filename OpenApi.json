@@ -736,6 +736,88 @@
                         }
                     }
                 }
+            },
+            "post":{
+                "tags": ["Testimonial API"],
+                "summary": "Create Testimonial",
+                "description": "Create Testimonial",
+                "requestBody":{
+                    "description": "Input Content Testimonial",
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "properties": {
+                                    "content":{
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example":{
+                                "content":"Terimakasih"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200":{
+                        "description": "Create Success",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "meta":{
+                                            "$ref":"#/components/schemas/Meta"
+                                        },
+                                        "data":{
+                                            "type": "object",
+                                            "properties": {
+                                                "id":{
+                                                    "type": "integer"
+                                                },
+                                                "photo_user":{
+                                                    "type": "string"
+                                                },
+                                                "name":{
+                                                    "type": "string"
+                                                },
+                                                "content":{
+                                                    "type": "string"
+                                                },
+                                                "email":{
+                                                    "type": "string"
+                                                },
+                                                "occupation":{
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "success":{
+                                        "value":{
+                                            "meta":{
+                                                "message":"Create Success",
+                                                "status":"success",
+                                                "code":200
+                                            },
+                                            "data":{
+                                                "id": 1,
+                                                "photo_user": "/images/feedbacks/comments-2.jpg",
+                                                "name": "Client1",
+                                                "content": "Getfit With Physio Sangat Membantu saya dengan segala keluhan fisik saya. Terima kasih Getfit",
+                                                "email": "clien1@gmail.com",
+                                                "occupation": "Programmer"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/galeries":{

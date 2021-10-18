@@ -1,9 +1,13 @@
 package testimonial
 
 import (
+	"GetfitWithPhysio-backend/exception"
 	"GetfitWithPhysio-backend/helper"
+	"encoding/json"
+	"io"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 
 	"github.com/go-playground/validator"
@@ -26,7 +30,15 @@ func setupRouter(db *gorm.DB) *httprouter.Router {
 	// Init Router
 	router := httprouter.New()
 
-	return Config(db, validate, router)
+	router = Config(db, validate, router)
+
+	router.PanicHandler = exception.ErrorHandler
+
+	return router
+}
+
+func truncateTestimonial(db *gorm.DB) {
+	db.Exec("TRUNCATE testimonials")
 }
 
 func TestGetAllTestimonialSuccess(t *testing.T) {
@@ -41,4 +53,53 @@ func TestGetAllTestimonialSuccess(t *testing.T) {
 	response := recorder.Result()
 
 	assert.Equal(t, 200, response.StatusCode)
+}
+
+func TestCreateTestimonialSuccess(t *testing.T) {
+	db := setupDatabase()
+	truncateTestimonial(db)
+	router := setupRouter(db)
+
+	reqBody := strings.NewReader(`{
+		"content": "Terimakasih"
+	  }`)
+	request := httptest.NewRequest(http.MethodPost, "http://localhost:3000/api/v1/testimonials", reqBody)
+	request.Header.Add("content-type", "application/json")
+	recorder := httptest.NewRecorder()
+
+	router.ServeHTTP(recorder, request)
+
+	response := recorder.Result()
+	assert.Equal(t, 200, response.StatusCode)
+
+	body, _ := io.ReadAll(recorder.Body)
+	var responseBody map[string]interface{}
+
+	json.Unmarshal(body, &responseBody)
+
+	assert.Equal(t, 200, int(responseBody["meta"].(map[string]interface{})["code"].(float64)))
+}
+func TestCreateTestimonialFailed(t *testing.T) {
+	db := setupDatabase()
+	truncateTestimonial(db)
+	router := setupRouter(db)
+
+	reqBody := strings.NewReader(`{
+		"content": ""
+	  }`)
+	request := httptest.NewRequest(http.MethodPost, "http://localhost:3000/api/v1/testimonials", reqBody)
+	request.Header.Add("content-type", "application/json")
+	recorder := httptest.NewRecorder()
+
+	router.ServeHTTP(recorder, request)
+
+	response := recorder.Result()
+	assert.Equal(t, 400, response.StatusCode)
+
+	body, _ := io.ReadAll(recorder.Body)
+	var responseBody map[string]interface{}
+
+	json.Unmarshal(body, &responseBody)
+
+	assert.Equal(t, 400, int(responseBody["meta"].(map[string]interface{})["code"].(float64)))
 }

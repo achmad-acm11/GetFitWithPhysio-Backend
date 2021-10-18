@@ -13,6 +13,6 @@ type Patient struct {
 	Birth_date time.Time // set default NULL if not set value
 	Phone      string
 	Address    string
-	Occupation *string
+	Occupation string
 	User       user.User `gorm:"ForeignKey:Id_user"`
 }
