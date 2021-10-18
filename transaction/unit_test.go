@@ -42,6 +42,25 @@ func truncateTransaction(db *gorm.DB) {
 	db.Exec("TRUNCATE transactions")
 }
 
+func TestGetAllTransactionSuccess(t *testing.T) {
+	db := setupDatabase()
+	router := setupRouter(db)
+
+	request := httptest.NewRequest(http.MethodGet, "http://localhost:3000/api/v1/transactions", nil)
+	recorder := httptest.NewRecorder()
+
+	router.ServeHTTP(recorder, request)
+
+	response := recorder.Result()
+	assert.Equal(t, 200, response.StatusCode)
+
+	body, _ := io.ReadAll(recorder.Body)
+	var responseBody map[string]interface{}
+
+	json.Unmarshal(body, &responseBody)
+
+	assert.Equal(t, 200, int(responseBody["meta"].(map[string]interface{})["code"].(float64)))
+}
 func TestCreateTransactionSucces(t *testing.T) {
 	db := setupDatabase()
 	truncateTransaction(db)

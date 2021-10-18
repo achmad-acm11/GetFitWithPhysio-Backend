@@ -13,6 +13,7 @@ import (
 )
 
 type ServiceTransaction interface {
+	GetAllService(ctx context.Context) []TransactionResponse
 	CreateService(ctx context.Context, req RequestTransaction) TransactionResponse
 }
 
@@ -34,6 +35,18 @@ func NewServiceTransaction(repo RepositoryTransaction, repoService service.Repos
 	}
 }
 
+// Get All Data Transactions
+func (s *serviceTransaction) GetAllService(ctx context.Context) []TransactionResponse {
+	tx := s.db.Begin()
+	defer helper.CommitOrRollback(tx)
+
+	// Get All Data
+	transactions := s.repo.GetAll(ctx, tx)
+
+	return MapTransactionsResponse(transactions)
+}
+
+// Create Transaction Service
 func (s *serviceTransaction) CreateService(ctx context.Context, req RequestTransaction) TransactionResponse {
 	err := s.validator.Struct(req)
 	helper.HandleError(err)

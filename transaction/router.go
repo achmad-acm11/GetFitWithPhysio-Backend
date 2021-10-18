@@ -21,6 +21,7 @@ func Config(db *gorm.DB, validate *validator.Validate, router *httprouter.Router
 	// Init Controller
 	contoller := NewControllerTransaction(service)
 
+	router.GET("/api/v1/transactions", contoller.GetAllTransactionController)
 	router.POST("/api/v1/transactions/:serviceId", contoller.CreateTransactionController)
 
 	return router

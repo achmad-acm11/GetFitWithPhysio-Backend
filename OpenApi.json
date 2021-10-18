@@ -1243,9 +1243,80 @@
                 }
             }
         },
+        "/transactions":{
+            "get":{
+                "tags": ["Transactions API"],
+                "summary": "Get All Transactions",
+                "description": "Get All Transactions",
+                "responses": {
+                    "200":{
+                        "description": "Success Get All Transactions",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "meta":{
+                                            "$ref":"#/components/schemas/Meta"
+                                        },
+                                        "data":{
+                                            "type": "array",
+                                            "items":{
+                                                "type": "object",
+                                                "properties": {
+                                                    "id":{
+                                                        "type": "integer"
+                                                    },
+                                                    "name":{
+                                                        "type": "string"
+                                                    },
+                                                    "gender":{
+                                                        "type": "string"
+                                                    },
+                                                    "phone":{
+                                                        "type": "string"
+                                                    },
+                                                    "address":{
+                                                        "type": "string"
+                                                    },
+                                                    "status":{
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "success":{
+                                        "value":{
+                                            "meta":{
+                                                "message":"Get Success",
+                                                "status":"success",
+                                                "code":200
+                                            },
+                                            "data":[
+                                                {
+                                                    "id": 1,
+                                                    "name": "patient1",
+                                                    "gender": "Perempuan",
+                                                    "phone": "0895619258715",
+                                                    "address": "link harum manis rt04/02 no 166 kel cirimekar kec.cibinong Kab.Bogor",
+                                                    "status": "Menunggu Pembayaran"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/transactions/{serviceId}":{
             "post":{
-                "tags": ["Tansactions API"],
+                "tags": ["Transactions API"],
                 "summary": "Create Transaction",
                 "description": "Create Transaction",
                 "parameters": [

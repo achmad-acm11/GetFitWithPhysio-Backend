@@ -18,6 +18,7 @@ func NewControllerTransaction(service ServiceTransaction) *controllerTransaction
 	}
 }
 
+// Create Trasaction
 func (c *controllerTransaction) CreateTransactionController(res http.ResponseWriter, req *http.Request, params httprouter.Params) {
 	serviceId, err := strconv.Atoi(params.ByName("serviceId"))
 	helper.HandleError(err)
@@ -33,6 +34,21 @@ func (c *controllerTransaction) CreateTransactionController(res http.ResponseWri
 	response := helper.FormatResponse{
 		Meta: helper.Meta{
 			Message: "Transaction Success",
+			Status:  "success",
+			Code:    200,
+		},
+		Data: data,
+	}
+
+	helper.WriteToResponsebody(res, response)
+}
+
+func (c *controllerTransaction) GetAllTransactionController(res http.ResponseWriter, req *http.Request, params httprouter.Params) {
+	data := c.service.GetAllService(req.Context())
+
+	response := helper.FormatResponse{
+		Meta: helper.Meta{
+			Message: "Get Success",
 			Status:  "success",
 			Code:    200,
 		},
