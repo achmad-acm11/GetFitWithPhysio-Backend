@@ -2,6 +2,7 @@ package main
 
 import (
 	"GetfitWithPhysio-backend/app"
+	"GetfitWithPhysio-backend/appointment"
 	"GetfitWithPhysio-backend/exception"
 	"GetfitWithPhysio-backend/galery"
 	"GetfitWithPhysio-backend/helper"
@@ -55,6 +56,8 @@ func main() {
 	router = patient.Config(db, validate, router)
 	// Collection API Transaction
 	router = transaction.Config(db, validate, router)
+	// Collection API Appointment
+	router = appointment.Config(db, validate, router)
 
 	// URL Access File
 	directory, _ := fs.Sub(resourcesTeamPhotos, "resources/team_photos")

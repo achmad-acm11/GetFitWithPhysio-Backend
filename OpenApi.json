@@ -1395,6 +1395,291 @@
                     }
                 }
             }
+        },
+        "/appointments":{
+            "get":{
+                "tags": ["Appointment API"],
+                "description": "Get All Appointment",
+                "summary": "Get All Appointment",
+                "responses": {
+                    "200":{
+                        "description": "Success Get All Appointment",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "meta":{
+                                            "$ref":"#/components/schemas/Meta"
+                                        },
+                                        "data":{
+                                            "type": "array",
+                                            "items":{
+                                                "type": "object",
+                                                "properties": {
+                                                    "id":{
+                                                        "type": "integer"
+                                                    },
+                                                    "name":{
+                                                        "type": "string"
+                                                    },
+                                                    "appointment_date":{
+                                                        "type": "string"
+                                                    },
+                                                    "gender":{
+                                                        "type": "string"
+                                                    },
+                                                    "address":{
+                                                        "type": "string"
+                                                    },
+                                                    "photo":{
+                                                        "type": "string"
+                                                    },
+                                                    "phone":{
+                                                        "type": "string"
+                                                    },
+                                                    "status":{
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "success":{
+                                        "value":{
+                                            "meta":{
+                                                "message":"Get Success",
+                                                "status":"success",
+                                                "code":200
+                                            },
+                                            "data":[
+                                                {
+                                                    "id": 1,
+                                                    "name": "patient1",
+                                                    "appointmentDate": "10-09-2021",
+                                                    "gender": "Perempuan",
+                                                    "address": "20150651325462",
+                                                    "photo": "/images/patient.jpg",
+                                                    "phone": "0895619258715",
+                                                    "status": "Menunggu Konfirmasi"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/appointments/{serviceId}":{
+            "post":{
+                "tags": ["Appointment API"],
+                "summary": "Create Appointment",
+                "description": "Create Appointment",
+                "parameters": [
+                    {
+                        "description": "Service Id",
+                        "required": true,
+                        "in": "path",
+                        "name": "serviceId"
+                    }
+                ],
+                "requestBody":{
+                    "description": "Input Appointment",
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "properties": {
+                                    "appointment_date":{
+                                        "type": "string"
+                                    },
+                                    "description":{
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example":{
+                                "appointment_date": "10-09-2021 15:00:00",
+                                "description": "Saya mengalami Sakit Pinggang"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200":{
+                        "description": "Create Appointment Success",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "meta":{
+                                            "$ref":"#/components/schemas/Meta"
+                                        },
+                                        "data":{
+                                            "type": "object",
+                                            "properties": {
+                                                "id":{
+                                                    "type": "integer"
+                                                },
+                                                "name":{
+                                                    "type": "string"
+                                                },
+                                                "appointment_date":{
+                                                    "type": "string"
+                                                },
+                                                "product":{
+                                                    "type": "string"
+                                                },
+                                                "gender":{
+                                                    "type": "string"
+                                                },
+                                                "address":{
+                                                    "type": "string"
+                                                },
+                                                "photo":{
+                                                    "type": "string"
+                                                },
+                                                "phone":{
+                                                    "type": "string"
+                                                },
+                                                "description":{
+                                                    "type": "string"
+                                                },
+                                                "status":{
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "success":{
+                                        "value":{
+                                            "meta":{
+                                                "meta":{
+                                                    "message": "Create Success",
+                                                    "status": "success",
+                                                    "code": 200
+                                                },
+                                                "data":{
+                                                    "id": 1,
+                                                    "name": "patient1",
+                                                    "appointmentDate": "10-09-2021",
+                                                    "product": "namapaket",
+                                                    "gender": "Perempuan",
+                                                    "address": "20150651325462",
+                                                    "photo": "/images/patient.jpg",
+                                                    "phone": "0895619258715",
+                                                    "description": "Saya mengalami Sakit Pinggang",
+                                                    "status": "Menunggu Konfirmasi"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/appointments/{appointmentId}":{
+            "get":{
+                "tags": ["Appointment API"],
+                "description": "Detail Appointment",
+                "summary": "Detail Appointment",
+                "parameters": [
+                    {
+                        "description": "Appointment Id",
+                        "required": true,
+                        "in": "path",
+                        "name": "appointmentId"
+                    }
+                ],
+                "responses": {
+                    "200":{
+                        "description": "Detail Appointment Success",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "meta":{
+                                            "$ref":"#/components/schemas/Meta"
+                                        },
+                                        "data":{
+                                            "type": "object",
+                                            "properties": {
+                                                "id":{
+                                                    "type": "integer"
+                                                },
+                                                "name":{
+                                                    "type": "string"
+                                                },
+                                                "appointment_date":{
+                                                    "type": "string"
+                                                },
+                                                "product":{
+                                                    "type": "string"
+                                                },
+                                                "gender":{
+                                                    "type": "string"
+                                                },
+                                                "address":{
+                                                    "type": "string"
+                                                },
+                                                "photo":{
+                                                    "type": "string"
+                                                },
+                                                "phone":{
+                                                    "type": "string"
+                                                },
+                                                "description":{
+                                                    "type": "string"
+                                                },
+                                                "status":{
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "success":{
+                                        "value":{
+                                            "meta":{
+                                                "meta":{
+                                                    "message": "Get Success",
+                                                    "status": "success",
+                                                    "code": 200
+                                                },
+                                                "data":{
+                                                    "id": 1,
+                                                    "name": "patient1",
+                                                    "appointmentDate": "10-09-2021",
+                                                    "product": "namapaket",
+                                                    "gender": "Perempuan",
+                                                    "address": "20150651325462",
+                                                    "photo": "/images/patient.jpg",
+                                                    "phone": "0895619258715",
+                                                    "description": "Saya mengalami Sakit Pinggang",
+                                                    "status": "Menunggu Konfirmasi"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
