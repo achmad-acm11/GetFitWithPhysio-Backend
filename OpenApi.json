@@ -272,33 +272,7 @@
                 "summary": "Create Team",
                 "requestBody":{
                     "description": "Input Data Team",
-                    "content": {
-                        "multipart/form-data":{
-                            "schema":{
-                                "type": "object",
-                                "properties": {
-                                    "name":{
-                                        "type": "string"
-                                    },
-                                    "position":{
-                                        "type": "string"
-                                    },
-                                    "url":{
-                                        "type": "string"
-                                    },
-                                    "desription":{
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "name": "Rifa Rahmalia. Amd.Ft",
-                                "position": "therapist",
-                                "url": "https://id.linkedin.com/in/faizah-abdullah-24a332b3",
-                                "description": "Education And Training Manager di Lembaga Vokasi Universitas Indonesia.  Lecturer University of Indonesia.  Senior Physiotherapist OM Active Clinic"
-                            }
-                        }
-                    }
+                    "$ref":"#/components/requestBodies/InputDataTeam"
                 },
                 "responses": {
                     "200":{
@@ -312,47 +286,89 @@
                                             "$ref":"#/components/schemas/Meta"
                                         },
                                         "data":{
-                                            "type": "object",
-                                            "properties": {
-                                                "id":{
-                                                    "type": "integer"
-                                                },
-                                                "name":{
-                                                    "type": "string"
-                                                },
-                                                "position":{
-                                                    "type": "string"
-                                                },
-                                                "url":{
-                                                    "type": "string"
-                                                },
-                                                "description":{
-                                                    "type": "string"
-                                                },
-                                                "photo_team":{
-                                                    "type": "string"
-                                                }
-                                            }
+                                            "$ref":"#/components/schemas/DataResponseTeam"
                                         }
                                     }
                                 },
                                 "examples": {
                                     "success":{
-                                        "value":{
-                                            "meta":{
-                                                "message":"Create Success",
-                                                "status":"success",
-                                                "code":200
-                                            },
-                                            "data":{
-                                                "id": 1,
-                                                "name": "Rifa Rahmalia. Amd.Ft",
-                                                "position": "therapist",
-                                                "url": "https://id.linkedin.com/in/faizah-abdullah-24a332b3",
-                                                "description": "Education And Training Manager di Lembaga Vokasi Universitas Indonesia.  Lecturer University of Indonesia.  Senior Physiotherapist OM Active Clinic",
-                                                "photo_team":"/images/feedbacks/comments-2.jpg"
-                                            }
+                                        "$ref":"#/components/examples/ExampleResponseOneTeam"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/teams/{teamId}":{
+            "get":{
+                "tags": ["Teams API"],
+                "summary": "Detail Team",
+                "description": "Detail Team",
+                "parameters": [
+                    {
+                        "$ref":"#/components/parameters/PathTeamId"
+                    }
+                ],
+                "responses": {
+                    "200":{
+                        "description": "Success Get Team",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "meta":{
+                                            "$ref":"#/components/schemas/Meta"
+                                        },
+                                        "data":{
+                                            "$ref":"#/components/schemas/DataResponseTeam"
                                         }
+                                    }
+                                },
+                                "examples": {
+                                    "success":{
+                                        "$ref":"#/components/examples/ExampleResponseOneTeam"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put":{
+                "tags": ["Teams API"],
+                "summary": "Update Team",
+                "description": "Update Team",
+                "parameters": [
+                    {
+                        "$ref":"#/components/parameters/PathTeamId"
+                    }
+                ],
+                "requestBody":{
+                    "description": "Update Data Team",
+                    "$ref":"#/components/requestBodies/InputDataTeam"
+                },
+                "responses": {
+                    "200":{
+                        "description": "Success Update Team",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "meta":{
+                                            "$ref":"#/components/schemas/Meta"
+                                        },
+                                        "data":{
+                                            "$ref":"#/components/schemas/DataResponseTeam"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "success":{
+                                        "$ref":"#/components/examples/ExampleResponseOneTeam"
                                     }
                                 }
                             }
@@ -437,41 +453,7 @@
                 "summary": "Create Data Service",
                 "requestBody":{
                     "description": "Input Data Service",
-                    "content": {
-                        "multipart/form-data":{
-                            "schema":{
-                                "type": "object",
-                                "properties": {
-                                    "kode_promo":{
-                                        "type": "integer"
-                                    },
-                                    "service_name":{
-                                        "type": "string"
-                                    },
-                                    "kuota_meet":{
-                                        "type": "integer"
-                                    },
-                                    "price":{
-                                        "type": "integer"
-                                    },
-                                    "image":{
-                                        "type": "string"
-                                    },
-                                    "description":{
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "kode_promo":1,
-                                "service_name": "Product Gold",
-                                "kuota_name": 2,
-                                "price": 450000,
-                                "image": "/images/service/service3.png",
-                                "description": "Treatment Fisioterapi reguler dengan 1x pertemuan."
-                            }
-                        }
-                    }
+                    "$ref": "#/components/requestBodies/InputDataService"
                 },
                 "responses": {
                     "200":{
@@ -485,47 +467,89 @@
                                             "$ref":"#/components/schemas/Meta"
                                         },
                                         "data":{
-                                            "type": "object",
-                                            "properties": {
-                                                "id":{
-                                                    "type":"number"
-                                                },
-                                                "image":{
-                                                    "type": "string"
-                                                },
-                                                "service_name":{
-                                                    "type": "string"
-                                                },
-                                                "description":{
-                                                    "type": "string"
-                                                },
-                                                "price":{
-                                                    "type": "number"
-                                                },
-                                                "discount":{
-                                                    "type": "number"
-                                                }
-                                            }
+                                            "$ref":"#/components/schemas/DataResponseService"
                                         }
                                     }
                                 },
                                 "examples": {
                                     "success":{
-                                        "value":{
-                                            "meta":{
-                                                "message":"Create Success",
-                                                "status":"success",
-                                                "code":200
-                                            },
-                                            "data":{
-                                                "id": 1,
-                                                "image": "/images/service/service3.png",
-                                                "service_name": "Product Gold",
-                                                "description": "Treatment Fisioterapi reguler dengan 1x pertemuan.",
-                                                "price": 450000,
-                                                "discount": 20
-                                            }
+                                        "$ref":"#/components/examples/ExampleResponseOneService"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/services/{serviceId}":{
+            "get":{
+                "tags": ["Services API"],
+                "description": "Detail Data Service",
+                "summary": "Detail Data Service",
+                "parameters": [
+                    {
+                        "$ref":"#/components/parameters/PathServiceId"
+                    }
+                ],
+                "responses": {
+                    "200":{
+                        "description": "Success Get Service",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "meta":{
+                                            "$ref":"#/components/schemas/Meta"
+                                        },
+                                        "data":{
+                                            "$ref":"#/components/schemas/DataResponseService"
                                         }
+                                    }
+                                },
+                                "examples": {
+                                    "success":{
+                                        "$ref":"#/components/examples/ExampleResponseOneService"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put":{
+                "tags": ["Services API"],
+                "description": "Update Data Service",
+                "summary": "Update Data Service",
+                "parameters": [
+                    {
+                        "$ref":"#/components/parameters/PathServiceId"
+                    }
+                ],
+                "requestBody":{
+                    "description": "Update Data Service",
+                    "$ref": "#/components/requestBodies/InputDataService"
+                },
+                "responses": {
+                    "200":{
+                        "description": "Success Update Service",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "meta":{
+                                            "$ref":"#/components/schemas/Meta"
+                                        },
+                                        "data":{
+                                            "$ref":"#/components/schemas/DataResponseService"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "success":{
+                                        "$ref":"#/components/examples/ExampleResponseOneService"
                                     }
                                 }
                             }
@@ -606,21 +630,7 @@
                 "summary": "Create Promo",
                 "requestBody":{
                     "description": "Input Promo",
-                    "content": {
-                        "application/json":{
-                            "schema":{
-                                "type": "object",
-                                "properties": {
-                                    "discount":{
-                                        "type": "integer"
-                                    }
-                                }
-                            },
-                            "example":{
-                                "discount":20
-                            }
-                        }
-                    }
+                    "$ref": "#/components/requestBodies/InputDataPromo"
                 },
                 "responses": {
                     "200":{
@@ -634,31 +644,57 @@
                                             "$ref":"#/components/schemas/Meta"
                                         },
                                         "data":{
-                                            "type": "object",
-                                            "properties": {
-                                                "id":{
-                                                    "type": "integer"
-                                                },
-                                                "discount":{
-                                                    "type": "integer"
-                                                }
-                                            }
+                                            "$ref":"#/components/schemas/DataResponsePromo"
                                         }
                                     }
                                 },
                                 "examples": {
                                     "success":{
-                                        "value":{
-                                            "meta":{
-                                                "message":"Create Success",
-                                                "status":"success",
-                                                "code":200
-                                            },
-                                            "data":{
-                                                "id": 1,
-                                                "discount": 20
-                                            }
+                                        "$ref":"#/components/examples/ExampleResponseOnePromo"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/promo/{promoId}":{
+            "put":{
+                "tags": ["Promo API"],
+                "description": "Update Promo",
+                "summary": "Update Promo",
+                "parameters": [
+                    {
+                        "description": "Promo Id",
+                        "required": true,
+                        "in": "path",
+                        "name": "promo id"
+                    }
+                ],
+                "requestBody":{
+                    "description": "Update Promo",
+                    "$ref": "#/components/requestBodies/InputDataPromo"
+                },
+                "responses": {
+                    "200":{
+                        "description": "Create Success",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "meta":{
+                                            "$ref":"#/components/schemas/Meta"
+                                        },
+                                        "data":{
+                                            "$ref":"#/components/schemas/DataResponsePromo"
                                         }
+                                    }
+                                },
+                                "examples": {
+                                    "success":{
+                                        "$ref":"#/components/examples/ExampleResponseOnePromo"
                                     }
                                 }
                             }
@@ -1041,49 +1077,7 @@
                 "summary": "Create Patient",
                 "requestBody":{
                     "description": "Create Data Patient",
-                    "content": {
-                        "application/json":{
-                            "schema":{
-                                "type": "object",
-                                "properties": {
-                                    "name" :{
-                                        "type": "string"
-                                    },
-                                    "gender":{
-                                        "type": "string"
-                                    },
-                                    "phone":{
-                                        "type": "string"
-                                    },
-                                    "address":{
-                                        "type": "string"
-                                    },
-                                    "nik":{
-                                        "type": "string"
-                                    },
-                                    "birthdate":{
-                                        "type": "string"
-                                    },
-                                    "email":{
-                                        "type": "string"
-                                    },
-                                    "password":{
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example":{
-                                "name": "patient1",
-                                "gender": "Perempuan",
-                                "phone": "0895619258715",
-                                "address": "link harum manis rt04/02 no 166 kel cirimekar kec.cibinong Kab.Bogor",
-                                "nik": "3215646516543",
-                                "birthdate": "15-09-1997",
-                                "email": "patient@gmail.com",
-                                "password": "12345678"
-                            }
-                        }
-                    }
+                    "$ref":"#/components/requestBodies/InputDataPatient"
                 },
                 "responses": {
                     "200":{
@@ -1097,58 +1091,13 @@
                                             "$ref":"#/components/schemas/Meta"
                                         },
                                         "data":{
-                                            "type": "array",
-                                            "items":{
-                                                "type": "object",
-                                                "properties": {
-                                                    "name":{
-                                                        "type": "string"
-                                                    },
-                                                    "gender":{
-                                                        "type":"string"
-                                                    },
-                                                    "phone":{
-                                                        "type": "string"
-                                                    },
-                                                    "address":{
-                                                        "type": "string"
-                                                    },
-                                                    "nik":{
-                                                        "type": "string"   
-                                                    },
-                                                    "birthdate":{
-                                                        "type": "string"
-                                                    },
-                                                    "email":{
-                                                        "type": "string"
-                                                    },
-                                                    "password":{
-                                                        "type": "string"
-                                                    }
-                                                }
-                                            }
+                                            "$ref":"#/components/schemas/DataResponsePatient"
                                         }
                                     }
                                 },
                                 "examples": {
                                     "success":{
-                                        "value":{
-                                            "meta":{
-                                                "message": "Create Success",
-                                                "status": "success",
-                                                "code": 200
-                                            },
-                                            "data":{
-                                                "name": "patient1",
-                                                "gender": "Perempuan",
-                                                "phone": "0895619258715",
-                                                "address": "link harum manis rt04/02 no 166 kel cirimekar kec.cibinong Kab.Bogor",
-                                                "nik": "3215646516543",
-                                                "birthdate": "15-09-1997",
-                                                "email": "patient@gmail.com",
-                                                "password": "12345678"
-                                            }
-                                        }
+                                        "$ref":"#/components/examples/ExampleResponseOnePatient"
                                     }
                                 }
                             }
@@ -1164,10 +1113,7 @@
                 "summary": "Detail Patient",
                 "parameters": [
                     {
-                        "description": "Patient Id",
-                        "required": true,
-                        "in": "path",
-                        "name": "patientId"
+                        "$ref":"#/components/parameters/PathPatientId"
                     }
                 ],
                 "responses": {
@@ -1235,6 +1181,45 @@
                                                 "email": "patient@gmail.com"
                                             }
                                         }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put":{
+                "tags": ["Patients API"],
+                "description": "Update Patient",
+                "summary": "Update Patient",
+                "parameters": [
+                    {
+                        "$ref":"#/components/parameters/PathPatientId"
+                    }
+                ],
+                "requestBody":{
+                    "description": "Update Data Patient",
+                    "$ref":"#/components/requestBodies/InputDataPatient"
+                },
+                "responses": {
+                    "200":{
+                        "description": "Success Create Patient",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "meta":{
+                                            "$ref":"#/components/schemas/Meta"
+                                        },
+                                        "data":{
+                                            "$ref":"#/components/schemas/DataResponsePatient"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "success":{
+                                        "$ref":"#/components/examples/ExampleResponseOnePatient"
                                     }
                                 }
                             }
@@ -1683,6 +1668,35 @@
         }
     },
     "components": {
+        "parameters": {
+            "PathTeamId":{
+                "description": "Team Id",
+                "required": true,
+                "in": "path",
+                "name": "teamId",
+                "schema":{
+                    "type": "integer"
+                }
+            },
+            "PathServiceId":{
+                "description": "Service Id",
+                "required": true,
+                "in": "path",
+                "name": "serviceId",
+                "schema":{
+                    "type": "integer"
+                }
+            },
+            "PathPatientId":{
+                "description": "Patient Id",
+                "required": true,
+                "in": "path",
+                "name": "patientId",
+                "schema":{
+                    "type": "integer"
+                }
+            }
+        },
         "schemas": {
             "Meta":{
                 "type": "object",
@@ -1695,6 +1709,293 @@
                     },
                     "code":{
                         "type": "number"
+                    }
+                }
+            },
+            "DataResponseTeam":{
+                "type": "object",
+                "properties": {
+                    "id":{
+                        "type": "integer"
+                    },
+                    "name":{
+                        "type": "string"
+                    },
+                    "position":{
+                        "type": "string"
+                    },
+                    "url":{
+                        "type": "string"
+                    },
+                    "description":{
+                        "type": "string"
+                    },
+                    "photo_team":{
+                        "type": "string"
+                    }
+                }
+            },
+            "DataResponseService":{
+                "type": "object",
+                "properties": {
+                    "id":{
+                        "type":"number"
+                    },
+                    "image":{
+                        "type": "string"
+                    },
+                    "service_name":{
+                        "type": "string"
+                    },
+                    "description":{
+                        "type": "string"
+                    },
+                    "price":{
+                        "type": "number"
+                    },
+                    "discount":{
+                        "type": "number"
+                    }
+                }
+            },
+            "DataResponsePromo":{
+                "type": "object",
+                "properties": {
+                    "id":{
+                        "type": "integer"
+                    },
+                    "discount":{
+                        "type": "integer"
+                    }
+                }
+            },
+            "DataResponsePatient":{
+                "type": "array",
+                "items":{
+                    "type": "object",
+                    "properties": {
+                        "name":{
+                            "type": "string"
+                        },
+                        "gender":{
+                            "type":"string"
+                        },
+                        "phone":{
+                            "type": "string"
+                        },
+                        "address":{
+                            "type": "string"
+                        },
+                        "nik":{
+                            "type": "string"   
+                        },
+                        "birthdate":{
+                            "type": "string"
+                        },
+                        "email":{
+                            "type": "string"
+                        },
+                        "password":{
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "examples": {
+            "ExampleResponseOneTeam":{
+                "value":{
+                    "meta":{
+                        "message":"Create Success",
+                        "status":"success",
+                        "code":200
+                    },
+                    "data":{
+                        "id": 1,
+                        "name": "Rifa Rahmalia. Amd.Ft",
+                        "position": "therapist",
+                        "url": "https://id.linkedin.com/in/faizah-abdullah-24a332b3",
+                        "description": "Education And Training Manager di Lembaga Vokasi Universitas Indonesia.  Lecturer University of Indonesia.  Senior Physiotherapist OM Active Clinic",
+                        "photo_team":"/images/feedbacks/comments-2.jpg"
+                    }
+                }
+            },
+            "ExampleResponseOneService":{
+                "value":{
+                    "meta":{
+                        "message":"Create Success",
+                        "status":"success",
+                        "code":200
+                    },
+                    "data":{
+                        "id": 1,
+                        "image": "/images/service/service3.png",
+                        "service_name": "Product Gold",
+                        "description": "Treatment Fisioterapi reguler dengan 1x pertemuan.",
+                        "price": 450000,
+                        "discount": 20
+                    }
+                }
+            },
+            "ExampleResponseOnePromo":{
+                "value":{
+                    "meta":{
+                        "message":"Create Success",
+                        "status":"success",
+                        "code":200
+                    },
+                    "data":{
+                        "id": 1,
+                        "discount": 20
+                    }
+                }
+            },
+            "ExampleResponseOnePatient":{
+                "value":{
+                    "meta":{
+                        "message": "Create Success",
+                        "status": "success",
+                        "code": 200
+                    },
+                    "data":{
+                        "name": "patient1",
+                        "gender": "Perempuan",
+                        "phone": "0895619258715",
+                        "address": "link harum manis rt04/02 no 166 kel cirimekar kec.cibinong Kab.Bogor",
+                        "nik": "3215646516543",
+                        "birthdate": "15-09-1997",
+                        "email": "patient@gmail.com",
+                        "password": "12345678"
+                    }
+                }
+            }
+        },
+        "requestBodies": {
+            "InputDataTeam":{
+                "content": {
+                    "multipart/form-data":{
+                        "schema":{
+                            "type": "object",
+                            "properties": {
+                                "name":{
+                                    "type": "string"
+                                },
+                                "position":{
+                                    "type": "string"
+                                },
+                                "url":{
+                                    "type": "string"
+                                },
+                                "desription":{
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "example": {
+                            "name": "Rifa Rahmalia. Amd.Ft",
+                            "position": "therapist",
+                            "url": "https://id.linkedin.com/in/faizah-abdullah-24a332b3",
+                            "description": "Education And Training Manager di Lembaga Vokasi Universitas Indonesia.  Lecturer University of Indonesia.  Senior Physiotherapist OM Active Clinic"
+                        }
+                    }
+                }
+            },
+            "InputDataService":{
+                "content": {
+                    "multipart/form-data":{
+                        "schema":{
+                            "type": "object",
+                            "properties": {
+                                "kode_promo":{
+                                    "type": "integer"
+                                },
+                                "service_name":{
+                                    "type": "string"
+                                },
+                                "kuota_meet":{
+                                    "type": "integer"
+                                },
+                                "price":{
+                                    "type": "integer"
+                                },
+                                "image":{
+                                    "type": "string"
+                                },
+                                "description":{
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "example": {
+                            "kode_promo":1,
+                            "service_name": "Product Gold",
+                            "kuota_name": 2,
+                            "price": 450000,
+                            "image": "/images/service/service3.png",
+                            "description": "Treatment Fisioterapi reguler dengan 1x pertemuan."
+                        }
+                    }
+                }
+            },
+            "InputDataPromo":{
+                "content": {
+                    "application/json":{
+                        "schema":{
+                            "type": "object",
+                            "properties": {
+                                "discount":{
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "example":{
+                            "discount":20
+                        }
+                    }
+                }
+            },
+            "InputDataPatient":{
+                "content": {
+                    "application/json":{
+                        "schema":{
+                            "type": "object",
+                            "properties": {
+                                "name" :{
+                                    "type": "string"
+                                },
+                                "gender":{
+                                    "type": "string"
+                                },
+                                "phone":{
+                                    "type": "string"
+                                },
+                                "address":{
+                                    "type": "string"
+                                },
+                                "nik":{
+                                    "type": "string"
+                                },
+                                "birthdate":{
+                                    "type": "string"
+                                },
+                                "email":{
+                                    "type": "string"
+                                },
+                                "password":{
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "example":{
+                            "name": "patient1",
+                            "gender": "Perempuan",
+                            "phone": "0895619258715",
+                            "address": "link harum manis rt04/02 no 166 kel cirimekar kec.cibinong Kab.Bogor",
+                            "nik": "3215646516543",
+                            "birthdate": "15-09-1997",
+                            "email": "patient@gmail.com",
+                            "password": "12345678"
+                        }
                     }
                 }
             }

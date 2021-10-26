@@ -66,6 +66,7 @@ func (s *serviceTestimonial) CreateTestimonialService(ctx context.Context, req R
 	testimonial.User.Photo_user = patient.User.Photo_user
 	testimonial.User.Name = patient.User.Name
 	testimonial.User.Email = patient.User.Email
+	testimonial.Patient.Occupation = patient.Occupation
 
 	return MapTestimonialResponse(testimonial)
 }

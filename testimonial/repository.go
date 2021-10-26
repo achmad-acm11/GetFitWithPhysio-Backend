@@ -21,9 +21,11 @@ func NewRepositoryTestimonial() *repositoryTestimonial {
 
 // SQL Query Get All Testimonial
 func (r *repositoryTestimonial) GetAll(ctx context.Context, tx *gorm.DB) []Testimonial {
-	testimonials := []Testimonial{}
-	err := tx.WithContext(ctx).Preload("User").Find(&testimonials).Error
+	result := []map[string]interface{}{}
+	err := tx.Table("testimonials").Joins("JOIN users ON users.id = testimonials.id_user").Joins("JOIN patients ON patients.id_user = users.id").Find(&result).Error
 	helper.HandleError(err)
+
+	testimonials := MapTestimonials(result)
 
 	return testimonials
 }

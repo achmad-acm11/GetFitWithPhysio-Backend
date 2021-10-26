@@ -7,6 +7,7 @@ type TestimonialResponse struct {
 	Name       string `json:"name"`
 	Email      string `json:"email"`
 	Content    string `json:"content"`
+	Occupation string `json:"occupation"`
 }
 
 func MapTestimonialResponse(testimonial Testimonial) TestimonialResponse {
@@ -14,9 +15,10 @@ func MapTestimonialResponse(testimonial Testimonial) TestimonialResponse {
 		Id:         testimonial.Id,
 		Id_user:    testimonial.Id_user,
 		Photo_user: testimonial.User.Photo_user,
+		Content:    testimonial.Content,
 		Name:       testimonial.User.Name,
 		Email:      testimonial.User.Email,
-		Content:    testimonial.Content,
+		Occupation: testimonial.Patient.Occupation,
 	}
 }
 func MapTestimonialsResponse(testimonials []Testimonial) []TestimonialResponse {
