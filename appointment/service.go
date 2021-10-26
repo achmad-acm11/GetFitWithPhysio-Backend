@@ -1,7 +1,10 @@
 package appointment
 
 import (
+	"GetfitWithPhysio-backend/exception"
 	"GetfitWithPhysio-backend/helper"
+	"GetfitWithPhysio-backend/patient"
+	"GetfitWithPhysio-backend/service"
 	"context"
 	"time"
 
@@ -16,16 +19,20 @@ type ServiceAppointment interface {
 }
 
 type serviceAppointment struct {
-	repo     RepositoryAppointment
-	db       *gorm.DB
-	validate *validator.Validate
+	repo        RepositoryAppointment
+	repoPatient patient.ReposioryPatient
+	repoService service.RepositoryService
+	db          *gorm.DB
+	validate    *validator.Validate
 }
 
-func NewServiceAppoinment(repo RepositoryAppointment, db *gorm.DB, validate *validator.Validate) *serviceAppointment {
+func NewServiceAppoinment(repo RepositoryAppointment, repoPatient patient.ReposioryPatient, repoService service.RepositoryService, db *gorm.DB, validate *validator.Validate) *serviceAppointment {
 	return &serviceAppointment{
-		repo:     repo,
-		db:       db,
-		validate: validate,
+		repo:        repo,
+		repoPatient: repoPatient,
+		repoService: repoService,
+		db:          db,
+		validate:    validate,
 	}
 }
 
@@ -47,6 +54,18 @@ func (s *serviceAppointment) CreateAppointment(ctx context.Context, reqAppointme
 	tx := s.db.Begin()
 	defer helper.CommitOrRollback(tx)
 
+	patient := s.repoPatient.GetOneById(ctx, tx, reqAppointment.IdPatient)
+
+	if patient.Id == 0 {
+		panic(exception.NewNotFoundError("Patient Not Found"))
+	}
+
+	service := s.repoService.GetOneById(ctx, tx, reqAppointment.IdService)
+
+	if service.Id == 0 {
+		panic(exception.NewNotFoundError("Service Not Found"))
+	}
+
 	date, _ := time.Parse("02-01-2006 15:00:00", reqAppointment.Appointment_date)
 
 	appointment := s.repo.Create(ctx, tx, Appointment{
@@ -56,6 +75,13 @@ func (s *serviceAppointment) CreateAppointment(ctx context.Context, reqAppointme
 		Description:      reqAppointment.Description,
 		Status:           "Pending",
 	})
+
+	appointment.Patient.User.Name = patient.User.Name
+	appointment.Service.Service_name = service.Service_name
+	appointment.Patient.Gender = patient.Gender
+	appointment.Patient.Address = patient.Address
+	appointment.Patient.User.Photo_user = patient.User.Photo_user
+	appointment.Patient.Phone = patient.Phone
 
 	return MapAppointmentResponse(appointment)
 }
@@ -67,5 +93,8 @@ func (s *serviceAppointment) DetailService(ctx context.Context, appointmentId in
 
 	appointment := s.repo.GetOneById(ctx, tx, appointmentId)
 
+	if appointment.Id == 0 {
+		panic(exception.NewNotFoundError("Appointment Not Found"))
+	}
 	return MapAppointmentResponse(appointment)
 }

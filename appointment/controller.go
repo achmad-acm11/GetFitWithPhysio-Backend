@@ -40,7 +40,7 @@ func (c *controllerAppointment) CreateAppointment(res http.ResponseWriter, req *
 
 	helper.ReadFromRequestBody(req, &requestAppointment)
 
-	requestAppointment.IdPatient = 1
+	requestAppointment.IdPatient = 2
 	requestAppointment.IdService = serviceId
 
 	data := c.service.CreateAppointment(req.Context(), requestAppointment)

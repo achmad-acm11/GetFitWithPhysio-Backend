@@ -1,6 +1,9 @@
 package appointment
 
 import (
+	"GetfitWithPhysio-backend/patient"
+	"GetfitWithPhysio-backend/service"
+
 	"github.com/go-playground/validator"
 	"github.com/julienschmidt/httprouter"
 	"gorm.io/gorm"
@@ -9,9 +12,11 @@ import (
 func Config(db *gorm.DB, validate *validator.Validate, router *httprouter.Router) *httprouter.Router {
 	// Init Repo
 	repository := NewRepositoryAppointment()
+	repositoryPatient := patient.NewRepositoryPatient()
+	repositoryService := service.NewRepositoryService()
 
 	// Init Service
-	service := NewServiceAppoinment(repository, db, validate)
+	service := NewServiceAppoinment(repository, repositoryPatient, repositoryService, db, validate)
 
 	// Init Controller
 	controller := NewControllerAppointment(service)

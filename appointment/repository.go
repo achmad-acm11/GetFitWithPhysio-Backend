@@ -24,7 +24,7 @@ func NewRepositoryAppointment() *repositoryAppontment {
 func (r *repositoryAppontment) GetAll(ctx context.Context, tx *gorm.DB) []Appointment {
 	appointment := []Appointment{}
 
-	err := tx.WithContext(ctx).Preload("Patient").Preload("Service").Find(&appointment).Error
+	err := tx.WithContext(ctx).Preload("Patient").Preload("Patient.User").Preload("Service").Find(&appointment).Error
 	helper.HandleError(err)
 
 	return appointment
@@ -34,7 +34,7 @@ func (r *repositoryAppontment) GetAll(ctx context.Context, tx *gorm.DB) []Appoin
 func (r *repositoryAppontment) GetOneById(ctx context.Context, tx *gorm.DB, appointmentId int) Appointment {
 	appointment := Appointment{}
 
-	err := tx.WithContext(ctx).Preload("Patient").Preload("Service").Where("id = ?", appointmentId).Find(&appointment).Error
+	err := tx.WithContext(ctx).Preload("Patient").Preload("Patient.User").Preload("Service").Where("id = ?", appointmentId).Find(&appointment).Error
 	helper.HandleError(err)
 
 	return appointment
