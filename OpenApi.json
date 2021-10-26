@@ -72,58 +72,13 @@
                                             "$ref":"#/components/schemas/Meta"
                                         },
                                         "data":{
-                                            "type": "array",
-                                            "items":{
-                                                "type": "object",
-                                                "properties": {
-                                                    "name":{
-                                                        "type": "string"
-                                                    },
-                                                    "gender":{
-                                                        "type":"string"
-                                                    },
-                                                    "phone":{
-                                                        "type": "string"
-                                                    },
-                                                    "address":{
-                                                        "type": "string"
-                                                    },
-                                                    "nik":{
-                                                        "type": "string"   
-                                                    },
-                                                    "birthdate":{
-                                                        "type": "string"
-                                                    },
-                                                    "email":{
-                                                        "type": "string"
-                                                    },
-                                                    "password":{
-                                                        "type": "string"
-                                                    }
-                                                }
-                                            }
+                                            "$ref":"#/components/schemas/DataResponsePatient"
                                         }
                                     }
                                 },
                                 "examples": {
                                     "success":{
-                                        "value":{
-                                            "meta":{
-                                                "message": "Register Success",
-                                                "status": "success",
-                                                "code": 200
-                                            },
-                                            "data":{
-                                                "name": "patient1",
-                                                "gender": "Perempuan",
-                                                "phone": "0895619258715",
-                                                "address": "link harum manis rt04/02 no 166 kel cirimekar kec.cibinong Kab.Bogor",
-                                                "nik": "3215646516543",
-                                                "birthdate": "15-09-1997",
-                                                "email": "patient@gmail.com",
-                                                "password": "12345678"
-                                            }
-                                        }
+                                        "$ref":"#/components/examples/ExampleResponseOnePatient"
                                     }
                                 }
                             }
@@ -1020,27 +975,7 @@
                                         "data":{
                                             "type": "array",
                                             "items":{
-                                                "type": "object",
-                                                "properties": {
-                                                    "id":{
-                                                        "type": "integer"
-                                                    },
-                                                    "name":{
-                                                        "type": "string"
-                                                    },
-                                                    "gender":{
-                                                        "type": "string"
-                                                    },
-                                                    "photo":{
-                                                        "type": "string"
-                                                    },
-                                                    "phone":{
-                                                        "type": "string"
-                                                    },
-                                                    "address":{
-                                                        "type": "string"
-                                                    }
-                                                }
+                                                
                                             }
                                         }
                                     }
@@ -1056,11 +991,17 @@
                                             "data":[
                                                 {
                                                     "id": 1,
+                                                    "id_user": 1,
+                                                    "role":1,
                                                     "name": "patient1",
-                                                    "gender": "Perempuan",
+                                                    "email": "patient@gmail.com",
                                                     "photo": "/imges/patient.jpg",
+                                                    "gender": "Perempuan",
+                                                    "nik": "3215646516543",
+                                                    "birthdate": "15-09-1997",
                                                     "phone": "0895619258715",
-                                                    "address": "link harum manis rt04/02 no 166 kel cirimekar kec.cibinong Kab.Bogor"
+                                                    "address": "link harum manis rt04/02 no 166 kel cirimekar kec.cibinong Kab.Bogor",
+                                                    "occupation": "programmer"
                                                 }
                                             ]
                                         }
@@ -1128,59 +1069,13 @@
                                             "$ref":"#/components/schemas/Meta"
                                         },
                                         "data":{
-                                            "type": "object",
-                                            "properties": {
-                                                "id":{
-                                                    "type": "integer"
-                                                },
-                                                "name":{
-                                                    "type": "string"
-                                                },
-                                                "gender":{
-                                                    "type": "string"
-                                                },
-                                                "photo":{
-                                                    "type": "string"
-                                                },
-                                                "phone":{
-                                                    "type": "string"
-                                                },
-                                                "address":{
-                                                    "type": "string"
-                                                },
-                                                "nik":{
-                                                    "type": "string"
-                                                },
-                                                "birthdate":{
-                                                    "type": "string"
-                                                },
-                                                "email":{
-                                                    "type": "string"
-                                                }
-                                            }
+                                            "$ref":"#/components/schemas/DataResponsePatient"
                                         }
                                     }
                                 },
                                 "examples":{
                                     "success":{
-                                        "value":{
-                                            "meta":{
-                                                "message": "Get Success",
-                                                "status": "success",
-                                                "code": 200
-                                            },
-                                            "data":{
-                                                "id": 1,
-                                                "name": "patient1",
-                                                "gender": "Perempuan",
-                                                "photo": "/images/patient.jpg",
-                                                "phone": "0895619258715",
-                                                "address": "link harum manis rt04/02 no 166 kel cirimekar kec.cibinong Kab.Bogor",
-                                                "nik": "3215646516543",
-                                                "birthdate": "15-09-1997",
-                                                "email": "patient@gmail.com"
-                                            }
-                                        }
+                                        "$ref":"#/components/examples/ExampleResponseOnePatient"
                                     }
                                 }
                             }
@@ -1802,34 +1697,43 @@
                 }
             },
             "DataResponsePatient":{
-                "type": "array",
-                "items":{
-                    "type": "object",
-                    "properties": {
-                        "name":{
-                            "type": "string"
-                        },
-                        "gender":{
-                            "type":"string"
-                        },
-                        "phone":{
-                            "type": "string"
-                        },
-                        "address":{
-                            "type": "string"
-                        },
-                        "nik":{
-                            "type": "string"   
-                        },
-                        "birthdate":{
-                            "type": "string"
-                        },
-                        "email":{
-                            "type": "string"
-                        },
-                        "password":{
-                            "type": "string"
-                        }
+                "type": "object",
+                "properties": {
+                    "id":{
+                        "type": "integer"
+                    },
+                    "id_user":{
+                        "type": "integer"
+                    },
+                    "role":{
+                        "type": "integer"
+                    },
+                    "name":{
+                        "type": "string"
+                    },
+                    "email":{
+                        "type": "string"
+                    },
+                    "photo":{
+                        "type": "string"
+                    },
+                    "gender":{
+                        "type": "string"
+                    },
+                    "nik":{
+                        "type": "string"
+                    },
+                    "birthdate":{
+                        "type": "string"
+                    },
+                    "phone":{
+                        "type": "string"
+                    },
+                    "address":{
+                        "type": "string"
+                    },
+                    "occupation":{
+                        "type": "string"
                     }
                 }
             }
@@ -1890,14 +1794,18 @@
                         "code": 200
                     },
                     "data":{
+                        "id": 1,
+                        "id_user": 1,
+                        "role":1,
                         "name": "patient1",
+                        "email": "patient@gmail.com",
+                        "photo": "/imges/patient.jpg",
                         "gender": "Perempuan",
-                        "phone": "0895619258715",
-                        "address": "link harum manis rt04/02 no 166 kel cirimekar kec.cibinong Kab.Bogor",
                         "nik": "3215646516543",
                         "birthdate": "15-09-1997",
-                        "email": "patient@gmail.com",
-                        "password": "12345678"
+                        "phone": "0895619258715",
+                        "address": "link harum manis rt04/02 no 166 kel cirimekar kec.cibinong Kab.Bogor",
+                        "occupation": "programmer"
                     }
                 }
             }

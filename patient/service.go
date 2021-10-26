@@ -14,9 +14,9 @@ import (
 
 type ServicePatient interface {
 	GetAllService(ctx context.Context) []PatientResponse
-	Register(ctx context.Context, req RegisterRequest) RegisterResponse
-	CreateService(ctx context.Context, req CreatePatientRequest) CreatePatientResponse
-	DetailService(ctx context.Context, patientId int) DetailPatientResponse
+	Register(ctx context.Context, req RegisterRequest) PatientResponse
+	CreateService(ctx context.Context, req CreatePatientRequest) PatientResponse
+	DetailService(ctx context.Context, patientId int) PatientResponse
 }
 
 type servicePatient struct {
@@ -45,7 +45,7 @@ func (s *servicePatient) GetAllService(ctx context.Context) []PatientResponse {
 	return MapPatientsResponse(patients)
 }
 
-func (s *servicePatient) Register(ctx context.Context, req RegisterRequest) RegisterResponse {
+func (s *servicePatient) Register(ctx context.Context, req RegisterRequest) PatientResponse {
 	// Validate Format Request
 	err := s.validate.Struct(req)
 	helper.HandleError(err)
@@ -73,10 +73,15 @@ func (s *servicePatient) Register(ctx context.Context, req RegisterRequest) Regi
 		Address:    req.Address,
 	})
 
-	return MapRegisterResponse(dataPatient, dataUser)
+	dataPatient.User.Email = dataUser.Email
+	dataPatient.User.Role = dataUser.Role
+	dataPatient.User.Name = dataUser.Name
+	dataPatient.User.Photo_user = dataUser.Photo_user
+
+	return MapPatientResponse(dataPatient)
 }
 
-func (s *servicePatient) CreateService(ctx context.Context, req CreatePatientRequest) CreatePatientResponse {
+func (s *servicePatient) CreateService(ctx context.Context, req CreatePatientRequest) PatientResponse {
 	// Validate Format Request
 	err := s.validate.Struct(req)
 	helper.HandleError(err)
@@ -104,10 +109,15 @@ func (s *servicePatient) CreateService(ctx context.Context, req CreatePatientReq
 		Address:    req.Address,
 	})
 
-	return MapCreatePatientResponse(dataPatient, dataUser)
+	dataPatient.User.Email = dataUser.Email
+	dataPatient.User.Role = dataUser.Role
+	dataPatient.User.Name = dataUser.Name
+	dataPatient.User.Photo_user = dataUser.Photo_user
+
+	return MapPatientResponse(dataPatient)
 }
 
-func (s *servicePatient) DetailService(ctx context.Context, patientId int) DetailPatientResponse {
+func (s *servicePatient) DetailService(ctx context.Context, patientId int) PatientResponse {
 	// Star Transaction
 	tx := s.db.Begin()
 	defer helper.CommitOrRollback(tx)
@@ -118,5 +128,5 @@ func (s *servicePatient) DetailService(ctx context.Context, patientId int) Detai
 		panic(exception.NewNotFoundError(errors.New("data not found").Error()))
 	}
 
-	return MapDetailPatientResponse(patient)
+	return MapPatientResponse(patient)
 }
