@@ -1252,6 +1252,12 @@
                                                     "id":{
                                                         "type": "integer"
                                                     },
+                                                    "id_user":{
+                                                        "type": "integer"
+                                                    },
+                                                    "id_service":{
+                                                        "type": "integer"
+                                                    },
                                                     "name":{
                                                         "type": "string"
                                                     },
@@ -1263,6 +1269,15 @@
                                                     },
                                                     "address":{
                                                         "type": "string"
+                                                    },
+                                                    "service_name":{
+                                                        "type": "string"
+                                                    },
+                                                    "code":{
+                                                        "type": "string"
+                                                    },
+                                                    "amount":{
+                                                        "type": "integer"
                                                     },
                                                     "status":{
                                                         "type": "string"
@@ -1283,10 +1298,15 @@
                                             "data":[
                                                 {
                                                     "id": 1,
+                                                    "id_user": 10,
+                                                    "id_service": 1,
                                                     "name": "patient1",
                                                     "gender": "Perempuan",
                                                     "phone": "0895619258715",
                                                     "address": "link harum manis rt04/02 no 166 kel cirimekar kec.cibinong Kab.Bogor",
+                                                    "service_name": "Product Gold",
+                                                    "code": "A3",
+                                                    "amount": 450000,
                                                     "status": "Menunggu Pembayaran"
                                                 }
                                             ]
@@ -1338,6 +1358,15 @@
                                                 "name":{
                                                     "type": "string"
                                                 },
+                                                "gender":{
+                                                    "type": "string"
+                                                },
+                                                "phone":{
+                                                    "type": "string"
+                                                },
+                                                "address":{
+                                                    "type": "string"
+                                                },
                                                 "service_name":{
                                                     "type": "string"
                                                 },
@@ -1367,6 +1396,9 @@
                                                 "id_user": 1,
                                                 "id_service": 1,
                                                 "name":"Abdul",
+                                                "gender": "Perempuan",
+                                                "phone": "0895619258715",
+                                                "address": "link harum manis rt04/02 no 166 kel cirimekar kec.cibinong Kab.Bogor",
                                                 "service_name":"Product Gold",
                                                 "code":"A1",
                                                 "amount":2000000,

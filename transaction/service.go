@@ -3,8 +3,8 @@ package transaction
 import (
 	"GetfitWithPhysio-backend/exception"
 	"GetfitWithPhysio-backend/helper"
+	"GetfitWithPhysio-backend/patient"
 	"GetfitWithPhysio-backend/service"
-	"GetfitWithPhysio-backend/user"
 	"context"
 	"strconv"
 
@@ -20,16 +20,16 @@ type ServiceTransaction interface {
 type serviceTransaction struct {
 	repo        RepositoryTransaction
 	repoService service.RepositoryService
-	repoUser    user.RepositoryUser
+	repoPatient patient.ReposioryPatient
 	db          *gorm.DB
 	validator   *validator.Validate
 }
 
-func NewServiceTransaction(repo RepositoryTransaction, repoService service.RepositoryService, repoUser user.RepositoryUser, db *gorm.DB, validator *validator.Validate) *serviceTransaction {
+func NewServiceTransaction(repo RepositoryTransaction, repoService service.RepositoryService, repoPatient patient.ReposioryPatient, db *gorm.DB, validator *validator.Validate) *serviceTransaction {
 	return &serviceTransaction{
 		repo:        repo,
 		repoService: repoService,
-		repoUser:    repoUser,
+		repoPatient: repoPatient,
 		db:          db,
 		validator:   validator,
 	}
@@ -52,11 +52,11 @@ func (s *serviceTransaction) CreateService(ctx context.Context, req RequestTrans
 	tx := s.db.Begin()
 	defer helper.CommitOrRollback(tx)
 	// Get Data User
-	user := s.repoUser.GetUserById(ctx, tx, req.IdUser)
+	patient := s.repoPatient.GetOneById_user(ctx, tx, req.IdUser)
 
 	// Check
-	if user.Id == 0 {
-		panic(exception.NewNotFoundError("User Not Found"))
+	if patient.Id == 0 {
+		panic(exception.NewNotFoundError("Patient Not Found"))
 	}
 
 	// Get One Service
@@ -81,7 +81,10 @@ func (s *serviceTransaction) CreateService(ctx context.Context, req RequestTrans
 	transaction = s.repo.Update(ctx, tx, transaction)
 
 	transaction.Service.Service_name = service.Service_name
-	transaction.User.Name = user.Name
+	transaction.User.Name = patient.User.Name
+	transaction.Patient.Gender = patient.Gender
+	transaction.Patient.Phone = patient.Phone
+	transaction.Patient.Address = patient.Address
 
 	return MapTransactionResponse(transaction)
 

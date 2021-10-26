@@ -1,8 +1,8 @@
 package transaction
 
 import (
+	"GetfitWithPhysio-backend/patient"
 	"GetfitWithPhysio-backend/service"
-	"GetfitWithPhysio-backend/user"
 
 	"github.com/go-playground/validator"
 	"github.com/julienschmidt/httprouter"
@@ -13,10 +13,10 @@ func Config(db *gorm.DB, validate *validator.Validate, router *httprouter.Router
 	// Init Repo
 	respository := NewRepositoryTransaction()
 	repositoryService := service.NewRepositoryService()
-	repositoryUser := user.NewRepositoryUser()
+	repositoryPatient := patient.NewRepositoryPatient()
 
 	// Init Service
-	service := NewServiceTransaction(respository, repositoryService, repositoryUser, db, validate)
+	service := NewServiceTransaction(respository, repositoryService, repositoryPatient, db, validate)
 
 	// Init Controller
 	contoller := NewControllerTransaction(service)

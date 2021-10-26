@@ -57,6 +57,4 @@ func MapTestimonials(result []map[string]interface{}) []Testimonial {
 		testimonials = append(testimonials, MapTestimonial(v))
 	}
 	return testimonials
-	// fmt.Println(result[0]["address"])
-	// log.Fatal(1)
 }

@@ -22,9 +22,11 @@ func NewRepositoryTransaction() *repositoryTransaction {
 
 // Query SQL Get All Transaction
 func (r *repositoryTransaction) GetAll(ctx context.Context, tx *gorm.DB) []Transaction {
-	transactions := []Transaction{}
-	err := tx.WithContext(ctx).Preload("User").Preload("Service").Find(&transactions).Error
+	result := []map[string]interface{}{}
+	err := tx.Table("transactions").Joins("join users ON users.id = transactions.id_user").Joins("join services ON services.id = transactions.id_service").Joins("join patients ON patients.id_user = users.id").Find(&result).Error
 	helper.HandleError(err)
+
+	transactions := MapTransactions(result)
 
 	return transactions
 }
