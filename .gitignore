@@ -25,7 +25,15 @@
 ### Go Patch ###
 /vendor/
 /Godeps/
-/resources/*
+/resources/galeries/*.png
+/resources/galeries/*.jpg
+/resources/galeries/*.jpeg
+/resources/service_image/*.png
+/resources/service_image/*.png
+/resources/service_image/*.jpg
+/resources/team_photos/*.jpg
+/resources/team_photos/*.jpeg
+/resources/team_photos/*.jpeg
 
 ### macOS ###
 # General
