@@ -1,1 +1,1 @@
-web: GetfitWithPhysio-backend
+web: getfitwithphysio-backend
