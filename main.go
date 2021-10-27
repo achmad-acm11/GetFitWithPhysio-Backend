@@ -16,6 +16,7 @@ import (
 	"embed"
 	"io/fs"
 	"net/http"
+	"os"
 
 	"github.com/go-playground/validator"
 	"github.com/julienschmidt/httprouter"
@@ -71,7 +72,8 @@ func main() {
 	router.PanicHandler = exception.ErrorHandler
 
 	server := http.Server{
-		Addr:    "localhost:3000",
+		Addr: ":" + os.Getenv("PORT"),
+		// Addr:    "localhost:3000",
 		Handler: router,
 	}
 

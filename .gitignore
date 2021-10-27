@@ -2,6 +2,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/go,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=go,macos
 
+### dotenv ###
+.env
+
 ### Go ###
 # Binaries for programs and plugins
 *.exe
