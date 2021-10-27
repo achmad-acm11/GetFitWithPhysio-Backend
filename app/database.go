@@ -10,6 +10,10 @@ import (
 )
 
 func ConfigDB() *gorm.DB {
+	// errEnv := godotenv.Load(".env")
+	// if errEnv != nil {
+	// 	panic("Failed to load env file. Make sure .env file is exists!")
+	// }
 	user := os.Getenv("DB_USER")
 	password := os.Getenv("DB_PASSWORD")
 	db_name := os.Getenv("DB_NAME")
