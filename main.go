@@ -13,8 +13,6 @@ import (
 	"GetfitWithPhysio-backend/testimonial"
 	"GetfitWithPhysio-backend/transaction"
 	"GetfitWithPhysio-backend/user"
-	"embed"
-	"io/fs"
 	"net/http"
 	"os"
 
@@ -22,19 +20,7 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
 
-//go:embed resources/team_photos
-var resourcesTeamPhotos embed.FS
-
-//go:embed resources/service_image
-var resourcesServiceImage embed.FS
-
-//go:embed resources/galeries
-var resourcesGaleries embed.FS
-
 func main() {
-	// Port
-	port := os.Getenv("PORT")
-
 	// Config Database
 	db := app.ConfigDB()
 
@@ -64,18 +50,18 @@ func main() {
 	router = appointment.Config(db, validate, router)
 
 	// URL Access File
-	directory, _ := fs.Sub(resourcesTeamPhotos, "resources/team_photos")
-	router.ServeFiles("/team_photos/*filepath", http.FS(directory))
-	directory1, _ := fs.Sub(resourcesServiceImage, "resources/service_image")
-	router.ServeFiles("/service_image/*filepath", http.FS(directory1))
-	directory2, _ := fs.Sub(resourcesGaleries, "resources/galeries")
-	router.ServeFiles("/galery/*filepath", http.FS(directory2))
+	// directory, _ := fs.Sub(resourcesTeamPhotos, "resources/team_photos")
+	router.ServeFiles("/team_photos/*filepath", http.Dir("resources/team_photos"))
+	// directory1, _ := fs.Sub(resourcesServiceImage, "resources/service_image")
+	router.ServeFiles("/service_image/*filepath", http.Dir("resources/service_image"))
+	// directory2, _ := fs.Sub(resourcesGaleries, "resources/galeries")
+	router.ServeFiles("/galery/*filepath", http.Dir("resources/galeries"))
 
 	// Handler for Exception Error
 	router.PanicHandler = exception.ErrorHandler
 
 	server := http.Server{
-		Addr: ":" + port,
+		Addr: ":" + os.Getenv("PORT"),
 		// Addr:    "localhost:3000",
 		Handler: router,
 	}
