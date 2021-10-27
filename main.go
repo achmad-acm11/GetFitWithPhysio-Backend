@@ -32,6 +32,9 @@ var resourcesServiceImage embed.FS
 var resourcesGaleries embed.FS
 
 func main() {
+	// Port
+	port := os.Getenv("PORT")
+
 	// Config Database
 	db := app.ConfigDB()
 
@@ -72,7 +75,7 @@ func main() {
 	router.PanicHandler = exception.ErrorHandler
 
 	server := http.Server{
-		Addr: ":" + os.Getenv("PORT"),
+		Addr: ":" + port,
 		// Addr:    "localhost:3000",
 		Handler: router,
 	}
