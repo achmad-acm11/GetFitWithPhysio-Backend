@@ -13,6 +13,7 @@ import (
 
 type ServiceImpl interface {
 	GetAllService(ctx context.Context) []ServiceResponse
+	GetAllServicePromo(ctx context.Context) []ServiceResponse
 	CreateService(ctx context.Context, req CreateServiceRequest) ServiceResponse
 	UploadImageService(ctx context.Context, serviceId int, filePath string)
 }
@@ -40,6 +41,17 @@ func (s *serviceImpl) GetAllService(ctx context.Context) []ServiceResponse {
 	defer helper.CommitOrRollback(tx)
 
 	services := s.repo.GetAll(ctx, tx)
+
+	return MapServicesResponse(services)
+}
+
+// Get All Service Promo
+func (s *serviceImpl) GetAllServicePromo(ctx context.Context) []ServiceResponse {
+	// Start Transaction
+	tx := s.db.Begin()
+	defer helper.CommitOrRollback(tx)
+
+	services := s.repo.GetAllPromo(ctx, tx)
 
 	return MapServicesResponse(services)
 }

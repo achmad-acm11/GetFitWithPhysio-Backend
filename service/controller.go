@@ -37,6 +37,24 @@ func (c *controllerService) GetAllController(wr http.ResponseWriter, req *http.R
 	helper.WriteToResponsebody(wr, reponse)
 }
 
+// Get All Service Controller
+func (c *controllerService) GetAllPromoController(wr http.ResponseWriter, req *http.Request, params httprouter.Params) {
+
+	servicesResponse := c.service.GetAllServicePromo(req.Context())
+
+	reponse := helper.FormatResponse{
+		Meta: helper.Meta{
+			Message: "Get Success",
+			Status:  "success",
+			Code:    200,
+		},
+		Data: servicesResponse,
+	}
+
+	helper.WriteToResponsebody(wr, reponse)
+}
+
+// Create Service Controller
 func (c *controllerService) CreateController(res http.ResponseWriter, req *http.Request, params httprouter.Params) {
 
 	requestService := CreateServiceRequest{}

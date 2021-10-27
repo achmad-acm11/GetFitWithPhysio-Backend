@@ -9,6 +9,7 @@ import (
 
 type RepositoryService interface {
 	GetAll(ctx context.Context, tx *gorm.DB) []Service
+	GetAllPromo(ctx context.Context, tx *gorm.DB) []Service
 	GetOneById(ctx context.Context, tx *gorm.DB, serviceId int) Service
 	Create(ctx context.Context, tx *gorm.DB, service Service) Service
 	UpdateImage(ctx context.Context, tx *gorm.DB, serviceId int, filePath string)
@@ -29,6 +30,17 @@ func (r *repositoryService) GetAll(ctx context.Context, tx *gorm.DB) []Service {
 
 	return services
 }
+
+// SQL Query Get All Data Service
+func (r *repositoryService) GetAllPromo(ctx context.Context, tx *gorm.DB) []Service {
+	services := []Service{}
+	err := tx.WithContext(ctx).Preload("Promo").Where("kode_promo != ?", 0).Find(&services).Error
+	helper.HandleError(err)
+
+	return services
+}
+
+// SQL Query Get One Service
 func (r *repositoryService) GetOneById(ctx context.Context, tx *gorm.DB, serviceId int) Service {
 	service := Service{}
 

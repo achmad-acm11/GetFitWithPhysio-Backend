@@ -513,6 +513,77 @@
                 }
             }
         },
+        "/services/promo":{
+            "get":{
+                "tags": ["Services API"],
+                "description": "Get All Data Services Promo",
+                "summary": "Get All Data Services Promo",
+                "responses": {
+                    "200":{
+                        "description": "Success Get All Data Services Promo",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "meta":{
+                                            "$ref": "#/components/schemas/Meta"
+                                        },
+                                        "data":{
+                                            "type": "array",
+                                            "items":{
+                                                "type": "object",
+                                                "properties": {
+                                                    "id":{
+                                                        "type":"number"
+                                                    },
+                                                    "image":{
+                                                        "type": "string"
+                                                    },
+                                                    "service_name":{
+                                                        "type": "string"
+                                                    },
+                                                    "description":{
+                                                        "type": "string"
+                                                    },
+                                                    "price":{
+                                                        "type": "number"
+                                                    },
+                                                    "discount":{
+                                                        "type": "number"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "success":{
+                                        "value":{
+                                            "meta":{
+                                                "message":"Get Success",
+                                                "status":"success",
+                                                "code":200
+                                            },
+                                            "data":[
+                                                {
+                                                    "id":1,
+                                                    "image": "/images/service/service3.png",
+                                                    "service_name": "Rifa Rahmalia",
+                                                    "description": "Treatment Fisioterapi reguler dengan 1x pertemuan.",
+                                                    "price": 450000,
+                                                    "discount": 30
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/promo":{
             "get":{
                 "tags": ["Promo API"],
