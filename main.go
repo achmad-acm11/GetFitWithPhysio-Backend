@@ -18,6 +18,7 @@ import (
 
 	"github.com/go-playground/validator"
 	"github.com/julienschmidt/httprouter"
+	"github.com/rs/cors"
 )
 
 func main() {
@@ -63,7 +64,7 @@ func main() {
 	server := http.Server{
 		Addr: ":" + os.Getenv("PORT"),
 		// Addr:    "localhost:3000",
-		Handler: router,
+		Handler: cors.Default().Handler(router),
 	}
 
 	err := server.ListenAndServe()
